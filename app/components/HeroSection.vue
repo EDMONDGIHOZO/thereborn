@@ -37,7 +37,7 @@
   left: 0;
   right: 0;
   height: 45%;
-  background: linear-gradient(135deg, #2447D9 0%, #1e3cb8 100%);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
   z-index: 1;
 }
 </style>

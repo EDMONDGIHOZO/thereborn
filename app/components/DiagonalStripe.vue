@@ -5,11 +5,11 @@
 <style scoped>
 .diagonal-stripe {
   position: absolute;
-  top: 0;
+  top: -10%;
   left: 50%;
-  transform: translateX(-50%) rotate(-5deg);
+  transform: translateX(-50%) rotate(4deg);
   width: 25%;
-  height: 120%;
+  height: 220%;
   background: linear-gradient(180deg, #4a1c1c 0%, #5c2020 50%, #4a1c1c 100%);
   z-index: 10;
   box-shadow: 

@@ -26,7 +26,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #2447D9;
+  color: rgb(27, 23, 0);
   transition: all 0.3s ease;
 }
 
