@@ -6,7 +6,13 @@ export default defineNuxtConfig({
   fonts: {
     families: [
       { name: 'Lexend', provider: 'google' },
-      { name: 'Gravitas One', provider: 'google' }
+      { name: 'Gravitas One', provider: 'google' },
+      { name: 'IBM Plex Sans', provider: 'google' }
     ]
+  },
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:9090/api/v1'
+    }
   }
 })
