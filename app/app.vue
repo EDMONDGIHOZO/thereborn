@@ -16,7 +16,15 @@ html, body {
 }
 
 .font-display {
-  font-family: 'Gravitas One', cursive;
+  font-family: 'Special Gothic Expanded One', sans-serif;
+}
+
+@font-face {
+  font-family: 'Special Gothic Expanded One';
+  src: url('/Special_Gothic_Expanded_One/SpecialGothicExpandedOne-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 .font-body {

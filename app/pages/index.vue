@@ -1,7 +1,7 @@
 <template>
   <div class="homepage">
-    <HeroSection />
     <HeaderSection />
+    <HeroSection />
   </div>
 </template>
 

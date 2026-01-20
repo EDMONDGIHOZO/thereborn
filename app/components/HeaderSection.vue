@@ -5,7 +5,7 @@
     </div>
     <div class="header-right">
       <NavLinks />
-      <PhoneNumber phone="+2400000000" />
+      <PhoneNumber phone="+250788347428" />
       <SocialIcons />
     </div>
   </header>
@@ -17,7 +17,7 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -38,7 +38,23 @@
 
 @media (max-width: 768px) {
   .header-section {
-    padding: 20px 30px;
+    position: relative;
+    padding: 20px 20px;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background: #0a0a0a; /* Match background color */
+  }
+  
+  .header-left {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .header-right {
+    width: 100%;
+    align-items: center;
+    gap: 10px;
   }
 }
 </style>

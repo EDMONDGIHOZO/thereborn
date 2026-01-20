@@ -8,7 +8,7 @@
 const props = defineProps({
   phone: {
     type: String,
-    default: '+2400000000'
+    default: '+250788347428'
   }
 })
 
