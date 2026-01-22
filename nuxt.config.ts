@@ -2,6 +2,13 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  runtimeConfig: {
+    public: {
+      apiBase: 'http://localhost:8080/api/v1',
+      cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME || '',
+      cloudinaryUploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET || ''
+    }
+  },
   modules: ['@nuxt/icon', '@nuxt/image', '@nuxt/fonts', '@nuxtjs/tailwindcss'],
   fonts: {
     families: [
@@ -9,10 +16,5 @@ export default defineNuxtConfig({
       { name: 'Gravitas One', provider: 'google' },
       { name: 'IBM Plex Sans', provider: 'google' }
     ]
-  },
-  runtimeConfig: {
-    public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:9090/api/v1'
-    }
   }
 })

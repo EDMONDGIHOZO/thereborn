@@ -9,93 +9,135 @@
         <!-- Search and Sort -->
         <div class="filter-container">
           <div class="search-wrapper">
-            <input 
-              v-model="searchQuery" 
-              type="text" 
-              placeholder="Search talent..." 
-              class="search-input"
-            />
-            <div class="search-icon">
-              <!-- Magnifying glass icon -->
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 5.196 5.196Z" />
-              </svg>
-            </div>
+             <input 
+               v-model="filters.search" 
+               type="text" 
+               placeholder="Search talent..." 
+               class="search-input"
+             />
+             <div class="search-icon">
+               <Icon name="ri:search-line" class="text-gray-500" />
+             </div>
+          </div>
+
+          <!-- Province Filter -->
+          <div class="sort-wrapper">
+             <select v-model="filters.province" class="sort-select">
+               <option value="">All Provinces</option>
+               <option value="Kigali">Kigali City</option>
+               <option value="Northern">Northern</option>
+               <option value="Southern">Southern</option>
+               <option value="Eastern">Eastern</option>
+               <option value="Western">Western</option>
+             </select>
+             <div class="chevron-icon"><Icon name="ri:arrow-down-s-line" /></div>
+          </div>
+
+          <!-- Gender Filter -->
+          <div class="sort-wrapper" style="width: 10rem;">
+             <select v-model="filters.gender" class="sort-select">
+               <option value="">All Genders</option>
+               <option value="MALE">Male</option>
+               <option value="FEMALE">Female</option>
+             </select>
+             <div class="chevron-icon"><Icon name="ri:arrow-down-s-line" /></div>
           </div>
           
           <div class="sort-wrapper">
-            <select v-model="sortBy" class="sort-select">
-              <option value="featured">Sort By Featured</option>
-              <option value="name">Sort By Name</option>
+            <select v-model="filters.sortBy" class="sort-select">
+              <option value="featured">Featured</option>
+              <option value="name">Name (A-Z)</option>
+              <option value="age">Age (Asc)</option>
             </select>
-            <div class="chevron-icon">
-               <!-- Chevron down icon -->
-               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                 <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-               </svg>
-            </div>
+            <div class="chevron-icon"><Icon name="ri:arrow-down-s-line" /></div>
           </div>
         </div>
       </div>
       
+      <!-- Loading State -->
+      <div v-if="pending" class="text-center py-20">
+          <Icon name="ri:loader-4-line" class="animate-spin text-4xl text-white" />
+      </div>
+
+      <!-- Error State -->
+      <div v-else-if="error" class="text-center py-20 text-red-500">
+          Failed to load actors. Please try again later.
+      </div>
+      
       <!-- Grid -->
-      <div v-if="filteredPeople.length > 0" class="people-grid">
-        <div v-for="person in filteredPeople" :key="person.id" class="person-card group">
+      <div v-else-if="filteredActors.length > 0" class="people-grid">
+        <NuxtLink v-for="person in filteredActors" :key="person.id" :to="`/cinema-hub/actor/${person.id}`" class="person-card group">
            <!-- Image -->
            <div class="image-wrapper">
-             <img :src="person.image" :alt="person.name" class="person-image" />
+             <img v-if="person.profileAvatarUrl" :src="person.profileAvatarUrl" :alt="person.fullName" class="person-image" />
+             <div v-else class="w-full h-full bg-gray-800 flex items-center justify-center text-gray-600">
+                 <Icon name="ri:user-line" class="text-6xl" />
+             </div>
            </div>
            
            <!-- Footer -->
            <div class="card-footer">
-              <h3 class="person-name">{{ person.name }}</h3>
-              <p class="person-work">{{ person.popularWork }}</p>
+              <h3 class="person-name">{{ person.fullName }}</h3>
+              <p class="person-work">{{ (person.cinemaRoles && person.cinemaRoles.length > 0) ? person.cinemaRoles[0] : (person.about || 'Actor') }}</p>
            </div>
-        </div>
+        </NuxtLink>
       </div>
       
       <!-- Empty State -->
       <div v-else class="empty-state">
-        <p class="empty-text">No profiles found matching "{{ searchQuery }}".</p>
-        <button @click="resetFilters" class="clear-btn">Clear search</button>
+        <p class="empty-text">No profiles found matching your criteria.</p>
+        <button @click="resetFilters" class="clear-btn">Clear filters</button>
       </div>
     </div>
   </section>
 </template>
 
-<script setup>
-import { ref, computed } from 'vue'
+<script setup lang="ts">
+import { ref, computed, reactive } from 'vue'
 
-const searchQuery = ref('')
-const sortBy = ref('featured')
+const config = useRuntimeConfig()
+const API = config.public.apiBase
+
+const filters = reactive({
+    search: '',
+    province: '',
+    gender: '',
+    sortBy: 'featured'
+})
+
+const { data: actors, pending, error } = await useFetch<any[]>(`${API}/actors`, {
+    server: false,
+    lazy: true
+})
 
 const resetFilters = () => {
-  searchQuery.value = ''
-  sortBy.value = 'featured'
+    filters.search = ''
+    filters.province = ''
+    filters.gender = ''
+    filters.sortBy = 'featured'
 }
 
-const people = [
-  { id: 1, name: 'Keza M.', popularWork: 'The Mercy of the Jungle (2018)', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600' },
-  { id: 2, name: 'John Doe', popularWork: 'Gahigiro (2024)', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=600' },
-  { id: 3, name: 'Alice K.', popularWork: 'Nameless (2023)', image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&q=80&w=600' },
-  { id: 4, name: 'Eric T.', popularWork: 'Director of Photography', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=600' },
-  { id: 5, name: 'Sarah B.', popularWork: 'Editor - 100 Days', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=600' },
-  { id: 6, name: 'Mike J.', popularWork: 'Imbabazi (2013)', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600' },
-  { id: 7, name: 'Diana R.', popularWork: 'Makeup Lead', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=600' },
-  { id: 8, name: 'Paul K.', popularWork: 'Sound Department', image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=600' }
-]
+const filteredActors = computed(() => {
+    if (!actors.value) return []
+    
+    let result = actors.value.filter((actor: any) => {
+        const matchesSearch = !filters.search || 
+            (actor.fullName && actor.fullName.toLowerCase().includes(filters.search.toLowerCase())) ||
+            (actor.about && actor.about.toLowerCase().includes(filters.search.toLowerCase()))
+        
+        const matchesProvince = !filters.province || (actor.province === filters.province)
+        const matchesGender = !filters.gender || (actor.gender === filters.gender)
 
-const filteredPeople = computed(() => {
-  let result = people.filter(p => {
-    return p.name.toLowerCase().includes(searchQuery.value.toLowerCase()) || 
-           p.popularWork.toLowerCase().includes(searchQuery.value.toLowerCase())
-  })
-  
-  if (sortBy.value === 'name') {
-    result.sort((a, b) => a.name.localeCompare(b.name))
-  }
-  
-  return result
+        return matchesSearch && matchesProvince && matchesGender
+    })
+
+    if (filters.sortBy === 'name') {
+        result.sort((a, b) => (a.fullName || '').localeCompare(b.fullName || ''))
+    } else if (filters.sortBy === 'age') {
+        result.sort((a, b) => (a.age || 0) - (b.age || 0))
+    }
+    
+    return result
 })
 </script>
 
@@ -196,6 +238,7 @@ const filteredPeople = computed(() => {
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .image-wrapper {
@@ -282,6 +325,7 @@ const filteredPeople = computed(() => {
     flex-direction: row;
     width: auto;
     margin-top: 0;
+    gap: 2rem;
   }
   
   .section-title {

@@ -10,11 +10,17 @@ const { token } = useAuth()
 const config = useRuntimeConfig()
 const API = `${config.public.apiBase}/admin`
 
-const { data: actors, refresh, error } = await useFetch(`${API}/actors`, {
+const activeTab = ref<'approved' | 'pending'>('approved')
+
+const { data: actors, refresh, error } = await useFetch(() => `${API}/actors${activeTab.value === 'pending' ? '/pending' : ''}`, {
     headers: {
         Authorization: `Bearer ${token.value}`
-    }
+    },
+    // Ensure we refetch when tab changes by using a reactive source for URL or watching activeTab
+    watch: [activeTab] 
 })
+
+
 
 const approveActor = async (id: number) => {
     try {
@@ -44,7 +50,7 @@ const deleteActor = async (id: number) => {
 const searchTerm = ref('')
 const filteredActors = computed(() => {
     if (!actors.value) return []
-    return actors.value.filter((a: any) => 
+    return (actors.value as any[]).filter((a: any) => 
         a.user.email.toLowerCase().includes(searchTerm.value.toLowerCase()) || 
         (a.about && a.about.toLowerCase().includes(searchTerm.value.toLowerCase()))
     )
@@ -62,6 +68,18 @@ const filteredActors = computed(() => {
             class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-sm font-medium transition-colors flex items-center">
             Add New Actor <Icon name="ri:add-line" class="ml-2" />
         </NuxtLink>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex border-b border-gray-200 mb-4">
+        <button @click="activeTab = 'approved'" 
+           :class="['px-6 py-3 text-sm font-medium border-b-2 transition-colors', activeTab === 'approved' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']">
+           Approved
+        </button>
+        <button @click="activeTab = 'pending'" 
+           :class="['px-6 py-3 text-sm font-medium border-b-2 transition-colors', activeTab === 'pending' ? 'border-amber-600 text-amber-600' : 'border-transparent text-gray-500 hover:text-gray-700']">
+           Pending Approval
+        </button>
     </div>
 
     <!-- Toolbar -->

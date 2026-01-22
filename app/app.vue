@@ -1,8 +1,15 @@
+<script setup>
+const route = useRoute()
+const showFooter = computed(() => {
+  return !route.path.startsWith('/dashboard') && !route.path.startsWith('/admin')
+})
+</script>
+
 <template>
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
-  <AppFooter />
+  <AppFooter v-if="showFooter" />
 </template>
 
 <style>

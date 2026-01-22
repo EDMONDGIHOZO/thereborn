@@ -16,9 +16,9 @@
           The central ecosystem for Rwanda's film industry. Explore a curated directory of actors, directors, producers, and creatives shaping the future of African cinema.
         </p>
         
-        <button class="cta-button">
+        <NuxtLink to="/cinema-hub/join" class="cta-button inline-block text-center">
           Join Now
-        </button>
+        </NuxtLink>
       </div>
     </div>
 
