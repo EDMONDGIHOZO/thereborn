@@ -1,5 +1,5 @@
 <template>
-  <div class="diagonal-stripe">
+  <NuxtLink to="/cinema-hub" class="diagonal-stripe">
     <video 
       class="bg-video"
       autoplay 
@@ -15,7 +15,7 @@
         RWANDA<br>CINEMA<br>HUB
       </h2>
     </div>
-  </div>
+  </NuxtLink>
 </template>
 
 <style scoped>
