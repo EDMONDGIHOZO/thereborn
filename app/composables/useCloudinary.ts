@@ -4,6 +4,7 @@ export const useCloudinary = () => {
     const uploadPreset = config.public.cloudinaryUploadPreset
 
     const uploadImage = async (file: File) => {
+        console.log("cloudname");
         if (!cloudName || !uploadPreset) {
             throw new Error('Cloudinary configuration missing')
         }
