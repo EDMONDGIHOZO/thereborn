@@ -22,15 +22,22 @@ const { data: actors, refresh, error } = await useFetch(() => `${API}/actors${ac
 
 
 
+const approvingIds = ref(new Set<number>())
+
 const approveActor = async (id: number) => {
+    approvingIds.value.add(id)
     try {
         await $fetch(`${API}/actors/${id}/approve`, {
             method: 'PUT',
             headers: { Authorization: `Bearer ${token.value}` }
         })
+        alert('Actor approved successfully. Email notification sent.')
         refresh()
     } catch (e) {
         console.error('Failed to approve actor', e)
+        alert('Failed to approve actor')
+    } finally {
+        approvingIds.value.delete(id)
     }
 }
 
@@ -138,7 +145,13 @@ const filteredActors = computed(() => {
                     </td>
                     <td class="p-4 text-right">
                          <div class="flex justify-end space-x-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                              <button v-if="!actor.approved" @click="approveActor(actor.id)" class="px-3 py-2 bg-green-600 text-white hover:bg-green-700 text-xs font-medium mr-1" title="Approve">Approve</button>
+                              <button v-if="!actor.approved" @click="approveActor(actor.id)" 
+                                      :disabled="approvingIds.has(actor.id)"
+                                      class="px-3 py-2 bg-green-600 text-white hover:bg-green-700 text-xs font-medium mr-1 disabled:opacity-50 disabled:cursor-not-allowed flex items-center" 
+                                      title="Approve">
+                                      <Icon v-if="approvingIds.has(actor.id)" name="ri:loader-4-line" class="animate-spin mr-1" />
+                                      {{ approvingIds.has(actor.id) ? 'Approving...' : 'Approve' }}
+                              </button>
                               <button @click="deleteActor(actor.id)" class="px-3 py-2 bg-red-600 text-white hover:bg-red-700 text-xs font-medium mr-1" title="Delete">Delete</button>
                               <NuxtLink :to="`/admin/actors/${actor.id}`" class="px-3 py-2 bg-gray-800 text-white hover:bg-gray-900 text-xs font-medium">Edit</NuxtLink>
                          </div>

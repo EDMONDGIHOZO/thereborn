@@ -21,6 +21,10 @@
           <input v-model="password" type="password" class="input-field" required />
         </div>
         <div v-if="error" class="text-red-500 text-sm text-center">{{ error }}</div>
+        <button v-if="showResendVerification" type="button" @click="resendVerification" 
+            class="text-yellow-500 hover:text-white text-sm underline w-full text-center mt-2">
+            Resend verification email
+        </button>
         <button type="submit" class="btn-gold w-full flex justify-center items-center gap-2" :disabled="loading">
            <Icon v-if="loading" name="ri:loader-4-line" class="animate-spin" />
            <span>Login as Actor</span>
@@ -41,20 +45,49 @@ const email = ref('')
 const password = ref('')
 const error = ref('')
 const loading = ref(false)
+const showResendVerification = ref(false)
+const resendEmail = ref('')
 const { login } = useAuth()
-const router = useRouter()
+const config = useRuntimeConfig()
 
 const handleLogin = async () => {
   loading.value = true
   error.value = ''
-  const success = await login(email.value, password.value)
-  if (success) {
-    router.push('/dashboard')
-  } else {
-    error.value = 'Invalid email or password'
+  showResendVerification.value = false
+  
+  const result = await login(email.value, password.value)
+  
+  if (!result.success) {
+    error.value = result.error || 'Invalid email or password'
+    if (result.needsVerification) {
+      showResendVerification.value = true
+      resendEmail.value = result.email || email.value
+    }
   }
   loading.value = false
 }
+
+const resendVerification = async () => {
+  try {
+    await $fetch(`${config.public.apiBase}/auth/resend-verification`, {
+      method: 'POST',
+      body: { email: resendEmail.value }
+    })
+    error.value = 'Verification email sent! Check your inbox.'
+    showResendVerification.value = false
+  } catch (e) {
+    console.error('Resend error', e)
+  }
+}
+
+const { user } = useAuth()
+const router = useRouter()
+
+onMounted(() => {
+  if (user.value) {
+    router.push('/dashboard')
+  }
+})
 </script>
 
 <style scoped>

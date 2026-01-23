@@ -6,6 +6,9 @@ const { logout } = useAuth()
 
 <template>
   <div class="min-h-screen bg-gray-100 text-gray-900 font-ibm flex">
+    <Head>
+      <title>Rwanda Cinema Hub Admin</title>
+    </Head>
     <!-- Sidebar -->
     <aside class="w-16 lg:w-64 bg-black text-white flex flex-col fixed h-full z-20 transition-all duration-300">
       <div class="h-16 flex items-center justify-center lg:justify-start">
@@ -13,19 +16,19 @@ const { logout } = useAuth()
       </div>
 
       <nav class="flex-1 flex flex-col mt-4">
-        <NuxtLink to="/admin" 
+        <NuxtLink to="/admin"
             class="flex items-center px-4 lg:px-6 py-4 text-gray-400 hover:bg-gray-800 hover:text-white transition-colors border-l-4 border-transparent hover:border-white group"
             active-class="bg-gray-800 text-white border-white">
             <Icon name="ri:dashboard-line" class="text-xl lg:mr-3 flex-shrink-0" />
             <span class="font-medium hidden lg:block">Dashboard</span>
         </NuxtLink>
-        <NuxtLink to="/admin/actors" 
+        <NuxtLink to="/admin/actors"
             class="flex items-center px-4 lg:px-6 py-4 text-gray-400 hover:bg-gray-800 hover:text-white transition-colors border-l-4 border-transparent hover:border-white group"
             active-class="bg-gray-800 text-white border-white">
             <Icon name="ri:user-star-line" class="text-xl lg:mr-3 flex-shrink-0" />
             <span class="font-medium hidden lg:block">Actors</span>
         </NuxtLink>
-        <NuxtLink to="/admin/movies" 
+        <NuxtLink to="/admin/movies"
             class="flex items-center px-4 lg:px-6 py-4 text-gray-400 hover:bg-gray-800 hover:text-white transition-colors border-l-4 border-transparent hover:border-white group"
             active-class="bg-gray-800 text-white border-white">
             <Icon name="ri:movie-2-line" class="text-xl lg:mr-3 flex-shrink-0" />
@@ -34,7 +37,7 @@ const { logout } = useAuth()
       </nav>
 
       <div class="p-4 border-t border-gray-800">
-        <button @click="logout" 
+        <button @click="logout"
             class="flex items-center justify-center lg:justify-start w-full px-2 lg:px-4 py-3 text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">
             <Icon name="ri:logout-box-line" class="text-xl lg:mr-3" />
             <span class="font-medium hidden lg:block">Logout</span>

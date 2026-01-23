@@ -4,9 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
     public: {
-      apiBase: 'http://localhost:8080/api/v1',
-      cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME || '',
-      cloudinaryUploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET || ''
+      apiBase: 'http://localhost:8080/api/v1'
     }
   },
   modules: ['@nuxt/icon', '@nuxt/image', '@nuxt/fonts', '@nuxtjs/tailwindcss'],

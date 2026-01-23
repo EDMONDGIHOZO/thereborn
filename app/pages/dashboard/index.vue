@@ -3,10 +3,25 @@
     <div class="container mx-auto max-w-6xl">
        <div class="flex justify-between items-center mb-8 border-b border-gray-800 pb-4">
           <h1 class="text-3xl font-bold text-white uppercase font-special">Dashboard</h1>
-          <button @click="handleLogout" class="text-gray-400 hover:text-white flex items-center gap-2">
-             <Icon name="ri:logout-box-line" />
-             <span>Logout</span>
-          </button>
+          <div class="flex items-center gap-6">
+              <NuxtLink to="/cinema-hub" class="text-yellow-500 hover:text-white flex items-center gap-2 transition-colors">
+                 <Icon name="ri:movie-2-line" />
+                 <span>Cinema Hub</span>
+              </NuxtLink>
+              <button @click="handleLogout" class="text-gray-400 hover:text-white flex items-center gap-2 transition-colors">
+                 <Icon name="ri:logout-box-line" />
+                 <span>Logout</span>
+              </button>
+          </div>
+       </div>
+
+       <!-- Approval Status Banner -->
+       <div v-if="isActor && myProfile && !myProfile.approved" class="bg-red-500/20 border border-red-500 text-red-100 p-4 rounded-lg mb-8 flex items-start gap-4">
+           <Icon name="ri:time-line" class="text-2xl mt-1 shrink-0" />
+           <div>
+               <h3 class="font-bold text-lg mb-1">Application Under Review</h3>
+               <p>Your actor profile is currently being reviewed by our team. You can update your profile and gallery in the meantime, but you won't appear in the public directory until approved.</p>
+           </div>
        </div>
 
        <div v-if="loading" class="text-center py-20">
@@ -45,7 +60,18 @@
                :class="{'bg-gray-800 text-white': activeTab === 'gallery', 'text-gray-400': activeTab !== 'gallery'}"
              >
                 <Icon name="ri:image-edit-line" />
+                <Icon name="ri:image-edit-line" />
                 <span>Manage Gallery</span>
+             </button>
+
+             <button 
+               v-if="isActor"
+               @click="activeTab = 'movies'"
+               class="w-full text-left p-3 rounded hover:bg-gray-800 transition-colors flex items-center gap-3"
+               :class="{'bg-gray-800 text-white': activeTab === 'movies', 'text-gray-400': activeTab !== 'movies'}"
+             >
+                <Icon name="ri:film-line" />
+                <span>Filmography</span>
              </button>
 
              <button 
@@ -80,8 +106,12 @@
                         </div>
                      </div>
                      <div>
-                        <label class="block text-gray-400 mb-1 text-sm">Avatar URL</label>
-                        <input v-model="profileForm.profileAvatarUrl" type="text" class="input-field" />
+                        <label class="block text-gray-400 mb-1 text-sm">Profile Avatar</label>
+                        <div class="flex items-center gap-4 mb-2">
+                             <img v-if="profileForm.profileAvatarUrl" :src="profileForm.profileAvatarUrl" class="w-16 h-16 rounded-full object-cover border border-gray-700" />
+                        </div>
+                        <input type="file" @change="handleFileChange" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-800 file:text-white hover:file:bg-gray-700"/>
+                        <p class="text-xs text-gray-500 mt-1">Upload a new photo to update</p>
                      </div>
                      <div>
                         <label class="block text-gray-400 mb-1 text-sm">About</label>
@@ -97,9 +127,9 @@
              <div v-if="activeTab === 'gallery' && isActor">
                  <h2 class="text-2xl font-bold text-white mb-6">Manage Gallery</h2>
                  
-                 <form @submit.prevent="addPhoto" class="flex gap-4 mb-8">
-                    <input v-model="newPhotoUrl" type="text" placeholder="Enter image URL" class="input-field flex-1" required />
-                    <button type="submit" class="btn-outline whitespace-nowrap">Add Photo</button>
+                 <form @submit.prevent="addPhoto" class="flex gap-4 mb-8 items-center">
+                    <input type="file" id="gallery-input" @change="handleGalleryFileChange" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-800 file:text-white hover:file:bg-gray-700" required />
+                    <button type="submit" class="btn-outline whitespace-nowrap" :disabled="!galleryFile">Add Photo</button>
                  </form>
 
                  <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -108,6 +138,93 @@
                        <button @click="removePhoto(photo)" class="absolute top-2 right-2 bg-red-500 text-white p-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">
                           <Icon name="ri:delete-bin-line" />
                        </button>
+                    </div>
+                 </div>
+             </div>
+
+             <!-- ACTOR: Filmography / Movies -->
+             <div v-if="activeTab === 'movies' && isActor">
+                 <h2 class="text-2xl font-bold text-white mb-6">Manage Filmography</h2>
+
+                 <!-- Add Movie Form -->
+                 <div class="bg-gray-800 p-6 rounded-lg mb-8 border border-gray-700">
+                    <h3 class="font-bold text-lg text-yellow-500 mb-4">Add Movie / Role</h3>
+                    <form @submit.prevent="addMovie" class="space-y-4">
+                        <div class="relative">
+                            <label class="block text-gray-400 mb-1 text-sm">Movie Title</label>
+                            <input 
+                                :value="movieForm.title" 
+                                @input="handleMovieSearch"
+                                type="text" 
+                                class="input-field" 
+                                placeholder="Start typing to search..." 
+                                required
+                            />
+                            <!-- Search Dropdown -->
+                            <div v-if="movieSearchResults.length > 0" class="absolute z-10 w-full bg-gray-900 border border-gray-700 mt-1 rounded max-h-60 overflow-y-auto shadow-xl">
+                                <div 
+                                    v-for="movie in movieSearchResults" 
+                                    :key="movie.id"
+                                    @click="selectMovie(movie)"
+                                    class="p-3 hover:bg-gray-800 cursor-pointer border-b border-gray-800 last:border-0 flex justify-between"
+                                >
+                                    <span class="text-white">{{ movie.title }}</span>
+                                    <span class="text-gray-500 text-sm">{{ movie.releaseYear }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-gray-400 mb-1 text-sm">Release Year</label>
+                                <input v-model="movieForm.releaseYear" type="number" class="input-field" placeholder="YYYY" />
+                            </div>
+                            <div>
+                                <label class="block text-gray-400 mb-1 text-sm">Trailer / Video URL</label>
+                                <input v-model="movieForm.trailerUrl" type="url" class="input-field" placeholder="https://youtube.com..." />
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                             <div>
+                                <label class="block text-gray-400 mb-1 text-sm">Director (Optional)</label>
+                                <input v-model="movieForm.director" type="text" class="input-field" />
+                             </div>
+                             <div>
+                                <label class="block text-gray-400 mb-1 text-sm">Poster URL (Optional)</label>
+                                <input v-model="movieForm.posterUrl" type="url" class="input-field" />
+                             </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-400 mb-1 text-sm">Description (Optional)</label>
+                            <textarea v-model="movieForm.description" rows="2" class="input-field"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-gold w-full" :disabled="saving">
+                            {{ saving ? 'Saving...' : 'Add Movie to Profile' }}
+                        </button>
+                    </form>
+                 </div>
+
+                 <!-- List Movies -->
+                 <h3 class="font-bold text-white mb-4">Your Movies ({{ myProfile?.movies?.length || 0 }})</h3>
+                 <div class="space-y-4">
+                    <div v-for="movie in myProfile?.movies || []" :key="movie.id" class="flex gap-4 p-4 bg-gray-800 rounded border border-gray-700">
+                        <div class="w-16 h-20 bg-gray-900 shrink-0">
+                            <img v-if="movie.posterUrl" :src="movie.posterUrl" class="w-full h-full object-cover" />
+                            <div v-else class="w-full h-full flex items-center justify-center">
+                                <Icon name="ri:movie-2-line" class="text-gray-600" />
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">{{ movie.title }}</h4>
+                            <div class="text-sm text-gray-400">
+                                <span v-if="movie.releaseYear">{{ movie.releaseYear }}</span>
+                                <span v-if="movie.director"> • Dir. {{ movie.director }}</span>
+                            </div>
+                            <a v-if="movie.trailerUrl" :href="movie.trailerUrl" target="_blank" class="text-yellow-500 text-sm hover:underline mt-1 block">Watch Trailer</a>
+                        </div>
                     </div>
                  </div>
              </div>
@@ -159,8 +276,82 @@ const profileForm = reactive({
 })
 const saving = ref(false)
 
-// Gallery Data
-const newPhotoUrl = ref('')
+// Movie Management
+const movieForm = reactive({
+    title: '',
+    releaseYear: '',
+    trailerUrl: '',
+    director: '',
+    description: '',
+    posterUrl: ''
+})
+const movieSearchResults = ref<any[]>([])
+const isSearchingMovies = ref(false)
+let searchTimeout: any = null
+
+const handleMovieSearch = (e: Event) => {
+    const query = (e.target as HTMLInputElement).value
+    movieForm.title = query
+    
+    if (searchTimeout) clearTimeout(searchTimeout)
+    if (!query || query.length < 2) {
+        movieSearchResults.value = []
+        return
+    }
+
+    searchTimeout = setTimeout(async () => {
+        isSearchingMovies.value = true
+        try {
+            const { data } = await useFetch<any[]>(`${API}/movies/search`, {
+                params: { query },
+                headers: { Authorization: `Bearer ${token.value}` }
+            })
+            movieSearchResults.value = data.value || []
+        } catch(e) { console.error(e) }
+        isSearchingMovies.value = false
+    }, 500)
+}
+
+const selectMovie = (movie: any) => {
+    movieForm.title = movie.title
+    movieForm.releaseYear = movie.releaseYear || ''
+    movieForm.trailerUrl = movie.trailerUrl || ''
+    movieForm.director = movie.director || ''
+    movieForm.description = movie.description || ''
+    movieForm.posterUrl = movie.posterUrl || ''
+    movieSearchResults.value = [] // Close dropdown
+}
+
+const addMovie = async () => {
+    if (!movieForm.title) return
+    saving.value = true
+    try {
+        await $fetch(`${API}/actors/me/movies`, {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${token.value}` },
+            body: {
+                title: movieForm.title,
+                releaseYear: movieForm.releaseYear ? parseInt(movieForm.releaseYear.toString()) : null,
+                trailerUrl: movieForm.trailerUrl,
+                director: movieForm.director,
+                description: movieForm.description,
+                posterUrl: movieForm.posterUrl
+            }
+        })
+        await loadProfile() // Refresh and clear form
+        alert('Movie added to profile!')
+        // Reset form
+        movieForm.title = ''
+        movieForm.releaseYear = ''
+        movieForm.trailerUrl = ''
+        movieForm.director = ''
+        movieForm.description = ''
+        movieForm.posterUrl = ''
+    } catch(e) {
+        alert('Failed to add movie')
+    }
+    saving.value = false
+}
 
 // Messages Data
 const messages = ref<any[]>([])
@@ -183,31 +374,66 @@ const loadProfile = async () => {
     } catch(e) { console.error(e) }
 }
 
+// File handler
+const selectedFile = ref<File | null>(null)
+const handleFileChange = (e: Event) => {
+    const target = e.target as HTMLInputElement
+    if (target.files && target.files.length > 0) {
+        selectedFile.value = target.files[0]
+    }
+}
+
 const updateProfile = async () => {
     saving.value = true
     try {
+        const formData = new FormData()
+        formData.append('fullName', profileForm.fullName)
+        formData.append('location', profileForm.location)
+        formData.append('about', profileForm.about)
+        formData.append('birthday', profileForm.birthday)
+        if (selectedFile.value) {
+            formData.append('profileImage', selectedFile.value)
+        }
+
         await $fetch(`${API}/actors/me`, {
             method: 'PUT',
             headers: { Authorization: `Bearer ${token.value}` },
-            body: profileForm
+            body: formData
         })
         await loadProfile() // Refresh
         alert('Profile updated!')
+        selectedFile.value = null // Reset file
     } catch(e) {
         alert('Failed to update profile')
     }
     saving.value = false
 }
 
+// Gallery File Handler
+const galleryFile = ref<File | null>(null)
+const handleGalleryFileChange = (e: Event) => {
+    const target = e.target as HTMLInputElement
+    if (target.files && target.files.length > 0) {
+        galleryFile.value = target.files[0]
+    }
+}
+
 const addPhoto = async () => {
-    if (!newPhotoUrl.value) return
+    if (!galleryFile.value) return
     try {
+        const formData = new FormData()
+        formData.append('file', galleryFile.value)
+
         await $fetch(`${API}/actors/me/gallery`, {
             method: 'POST',
             headers: { Authorization: `Bearer ${token.value}` },
-            params: { photoUrl: newPhotoUrl.value }
+            body: formData
         })
-        newPhotoUrl.value = ''
+        galleryFile.value = null
+        // Reset file input if possible or just rely on state
+        const fileInput = document.getElementById('gallery-input') as HTMLInputElement
+        if (fileInput) fileInput.value = ''
+        
         await loadProfile()
     } catch(e) { alert('Failed to add photo') }
 }

@@ -35,7 +35,9 @@ export const useAuth = () => {
 
         if (user.value) {
             const roles = user.value.roles || []
-            if (roles.includes('ACTOR')) {
+            if (roles.includes('ADMIN') || roles.includes('SUPER_ADMIN')) {
+                await router.push('/admin')
+            } else if (roles.includes('ACTOR')) {
                 await router.push('/dashboard')
             } else {
                 await router.push('/dashboard') // Fans also go to dashboard
@@ -52,20 +54,38 @@ export const useAuth = () => {
 
             if (error.value) {
                 console.error('Login failed:', error.value)
-                return false
+                return { success: false, error: 'Invalid email or password' }
             }
 
             if (data.value && data.value.token) {
                 token.value = data.value.token
+
+                // Check email verification
+                if (!data.value.emailVerified) {
+                    return {
+                        success: false,
+                        error: 'Please verify your email before logging in. Check your inbox.',
+                        needsVerification: true,
+                        email
+                    }
+                }
+
                 await fetchUser()
+
+                // Check profile completion for actors
+                if (data.value.role === 'ACTOR' && !data.value.profileComplete) {
+                    await router.push('/profile/setup')
+                    return { success: true, redirected: true }
+                }
+
                 await handleRedirect()
-                return true
+                return { success: true }
             }
         } catch (e) {
             console.error('Login error:', e)
-            return false
+            return { success: false, error: 'An error occurred. Please try again.' }
         }
-        return false
+        return { success: false, error: 'Login failed' }
     }
 
     const registerFan = async (email: string, password: string) => {

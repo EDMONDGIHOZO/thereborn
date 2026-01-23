@@ -6,9 +6,17 @@ const email = ref('')
 const password = ref('')
 const isLoading = ref(false)
 
+const error = ref('')
+
 const handleLogin = async () => {
   isLoading.value = true
-  await login(email.value, password.value)
+  error.value = ''
+  
+  const result = await login(email.value, password.value)
+  if (!result.success) {
+      error.value = result.error || 'Invalid credentials'
+  }
+  
   isLoading.value = false
 }
 </script>

@@ -95,16 +95,7 @@
              </button>
           </div>
 
-          <!-- Filmography -->
-          <div v-if="actor.moviesParticipated && actor.moviesParticipated.length" class="mb-12">
-            <h3 class="section-heading mb-6 text-xl">Filmography</h3>
-            <div class="space-y-3">
-               <div v-for="(movie, index) in actor.moviesParticipated" :key="index" class="p-4 border border-gray-800 bg-[#0A0A16] flex items-center justify-between group hover:border-gray-600 transition-colors">
-                  <span class="text-white font-bold">{{ movie }}</span>
-                  <Icon name="ri:film-line" class="text-gray-600" />
-               </div>
-            </div>
-          </div>
+
 
         </div>
 
@@ -118,7 +109,7 @@
            </div>
 
            <!-- Gallery Grid -->
-           <div v-if="actor.gallery && actor.gallery.length" class="animate-slide-up delay-100">
+           <div v-if="actor.gallery && actor.gallery.length" class="animate-slide-up delay-100 mb-16">
               <div class="flex items-end justify-between mb-8 border-b border-gray-800 pb-4">
                  <h3 class="text-2xl font-bold text-white uppercase tracking-wide">Gallery</h3>
                  <span class="text-gray-500 font-mono">{{ actor.gallery.length }} Photos</span>
@@ -146,6 +137,48 @@
                       <span>{{ showAllGallery ? 'Show Less' : 'Load More Photos' }}</span>
                       <Icon :name="showAllGallery ? 'ri:arrow-up-s-line' : 'ri:arrow-down-s-line'" />
                    </button>
+              </div>
+           </div>
+
+           <!-- Movies Section -->
+           <div v-if="(actor.movies && actor.movies.length) || (actor.moviesParticipated && actor.moviesParticipated.length)" class="animate-slide-up delay-100">
+              <div class="flex items-end justify-between mb-8 border-b border-gray-800 pb-4">
+                 <h3 class="text-2xl font-bold text-white uppercase tracking-wide">Movies & Filmography</h3>
+              </div>
+
+              <!-- New Movie Objects -->
+              <div v-if="actor.movies && actor.movies.length" class="space-y-4">
+                 <div v-for="movie in actor.movies" :key="movie.id" class="flex gap-4 p-4 border border-gray-800 bg-[#0A0A16] hover:border-yellow-500/50 transition-colors group">
+                    <!-- Poster if available -->
+                    <div v-if="movie.posterUrl" class="w-16 h-24 shrink-0 bg-gray-900 border border-gray-800">
+                        <img :src="movie.posterUrl" class="w-full h-full object-cover" />
+                    </div>
+                    <div v-else class="w-16 h-24 shrink-0 bg-gray-900 border border-gray-800 flex items-center justify-center text-gray-700">
+                        <Icon name="ri:movie-2-line" class="text-2xl" />
+                    </div>
+
+                    <div class="flex-1">
+                        <h4 class="text-xl font-bold text-white group-hover:text-yellow-500 transition-colors">{{ movie.title }}</h4>
+                        <div class="flex flex-wrap gap-3 text-sm text-gray-500 mt-1">
+                            <span v-if="movie.releaseYear">{{ movie.releaseYear }}</span>
+                            <span v-if="movie.director">Dir. {{ movie.director }}</span>
+                        </div>
+                        <p v-if="movie.description" class="text-gray-400 text-sm mt-2 line-clamp-2">{{ movie.description }}</p>
+                        
+                        <a v-if="movie.trailerUrl" :href="movie.trailerUrl" target="_blank" class="inline-flex items-center gap-1 text-yellow-500 text-sm mt-2 hover:underline">
+                            <Icon name="ri:play-circle-line" />
+                            <span>Watch Trailer</span>
+                        </a>
+                    </div>
+                 </div>
+              </div>
+
+              <!-- Fallback to Legacy Strings if no objects -->
+              <div v-else-if="actor.moviesParticipated && actor.moviesParticipated.length" class="space-y-3">
+                 <div v-for="(movie, index) in actor.moviesParticipated" :key="index" class="p-4 border border-gray-800 bg-[#0A0A16] flex items-center justify-between group hover:border-gray-600 transition-colors">
+                    <span class="text-white font-bold">{{ movie }}</span>
+                    <Icon name="ri:film-line" class="text-gray-600" />
+                 </div>
               </div>
            </div>
 
