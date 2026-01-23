@@ -1,7 +1,7 @@
 <template>
   <header class="header-section">
     <div class="header-left">
-      <LogoBox />
+      <LogoBox/>
     </div>
     <div class="header-right">
       <!-- Auth Links -->
@@ -10,15 +10,15 @@
         <NuxtLink v-if="!user" to="/auth/signup" class="auth-link auth-link-primary">Sign Up</NuxtLink>
         <NuxtLink v-if="user" to="/dashboard" class="auth-link">Dashboard</NuxtLink>
       </div>
-      <NavLinks />
-      <PhoneNumber phone="+250788347428" />
-      <SocialIcons />
+      <NavLinks/>
+      <PhoneNumber phone="+250788347428"/>
+      <SocialIcons/>
     </div>
   </header>
 </template>
 
 <script setup>
-const { user } = useAuth()
+const {user} = useAuth()
 </script>
 
 <style scoped>
@@ -55,12 +55,12 @@ const { user } = useAuth()
     gap: 20px;
     background: #0a0a0a; /* Match background color */
   }
-  
+
   .header-left {
     width: 100%;
     justify-content: center;
   }
-  
+
   .header-right {
     width: 100%;
     align-items: center;

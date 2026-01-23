@@ -44,7 +44,9 @@ const router = useRouter()
 const handleLogin = async () => {
   loading.value = true
   error.value = ''
-  const success = await login(email.value, password.value)
+  console.log("login starts")
+  const success = await login(email.value, password.value);
+  console.info("login ends");
   if (success) {
     window.location.href = "/admin";
   } else {
