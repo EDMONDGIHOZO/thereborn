@@ -6,21 +6,19 @@ export const useFileUpload = () => {
         const formData = new FormData()
         formData.append('file', file)
 
-        const response = await fetch(`${API}/upload`, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-
-        if (!response.ok) {
-            const errorData = await response.json()
-            throw new Error(errorData.error || 'Upload failed')
+        try {
+            const data = await $fetch<{ url: string }>(`${API}/upload`, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            return data.url
+        } catch (e: any) {
+            console.error('Upload error:', e)
+            throw new Error(e.message || 'Failed to upload file')
         }
-
-        const data = await response.json()
-        return data.url
     }
 
     return {

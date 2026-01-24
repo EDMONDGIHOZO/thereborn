@@ -58,8 +58,8 @@
           <!-- Name & Details (Centered on mobile, Left on Desktop) -->
           <div class="text-center lg:text-left mb-8">
              <div class="mb-4">
-                <span v-if="actor.cinemaRoles && actor.cinemaRoles.length" class="inline-block py-1 px-3 border border-yellow-500/50 text-yellow-500 text-xs font-bold tracking-widest uppercase">
-                  {{ actor.cinemaRoles.join(' • ') }}
+                <span v-if="formattedRoles && formattedRoles.length" class="inline-block py-1 px-3 border border-yellow-500/50 text-yellow-500 text-xs font-bold tracking-widest uppercase">
+                  {{ formattedRoles.join(' • ') }}
                 </span>
              </div>
              
@@ -72,9 +72,9 @@
                   <Icon name="ri:map-pin-line" />
                   <span>{{ actor.location }}</span>
                 </div>
-                <div v-if="actor.age && actor.age > 0" class="flex items-center gap-2">
-                  <Icon name="ri:calendar-line" />
-                  <span>{{ actor.age }} Years Old</span>
+                <div v-if="actor.birthday" class="flex items-center gap-2">
+                  <Icon name="ri:cake-2-line" />
+                  <span>{{ formatDate(actor.birthday) }}</span>
                 </div>
                 <div v-if="actor.gender" class="flex items-center gap-2">
                    <Icon name="ri:user-smile-line" />
@@ -251,6 +251,16 @@ onMounted(() => {
     }
 })
 
+const formattedRoles = computed(() => {
+    if (!actor.value?.cinemaRoles) return []
+    return actor.value.cinemaRoles.map((role: string) => {
+        if (role.toLowerCase() === 'actor' && actor.value.gender === 'FEMALE') {
+            return 'Actress'
+        }
+        return role
+    })
+})
+
 const visibleGallery = computed(() => {
   if (!actor.value?.gallery) return []
   if (showAllGallery.value) return actor.value.gallery
@@ -341,6 +351,15 @@ const sendMessage = async () => {
         alert('Failed to send message. Please try again.')
     }
     sendingMessage.value = false
+}
+
+const formatDate = (date: any) => {
+  if (!date) return ''
+  let dVal = new Date(date)
+  if (Array.isArray(date)) {
+    dVal = new Date(Date.UTC(date[0], date[1] - 1, date[2]))
+  }
+  return new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' }).format(dVal)
 }
 
 useHead({

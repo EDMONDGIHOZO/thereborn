@@ -23,11 +23,20 @@
     </div>
 
     <!-- Decorative Elements -->
-    <div class="scroll-indicator">
+    <button @click="scrollToDirectory" class="scroll-indicator appearance-none bg-transparent border-0 cursor-pointer hover:text-white transition-colors">
       SCROLL TO EXPLORE
-    </div>
+    </button>
   </section>
 </template>
+
+<script setup>
+const scrollToDirectory = () => {
+  const directorySection = document.getElementById('directory')
+  if (directorySection) {
+    directorySection.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+</script>
 
 <style scoped>
 .hero-container {

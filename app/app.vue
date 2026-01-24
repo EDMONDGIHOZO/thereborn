@@ -1,4 +1,6 @@
 <script setup>
+import { Toaster } from 'vue-sonner'
+
 const route = useRoute()
 const showFooter = computed(() => {
   return !route.path.startsWith('/dashboard') && !route.path.startsWith('/admin')
@@ -6,6 +8,9 @@ const showFooter = computed(() => {
 </script>
 
 <template>
+  <ClientOnly>
+    <Toaster position="top-right" richColors />
+  </ClientOnly>
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>

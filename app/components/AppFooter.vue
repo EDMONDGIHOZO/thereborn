@@ -10,7 +10,7 @@
         </div>
         
         <div class="flex flex-col gap-3 items-center md:items-start text-gray-400">
-           <a href="tel:+250788347428" class="font-body hover:text-cinema-gold transition-colors tracking-wide">+250 788 347 428</a>
+           <a href="tel:+250788347428" class="font-body hover:text-cinema-gold transition-colors tracking-wide">+250788261877</a>
            <div class="flex items-center gap-4">
              <div class="flex gap-3">
                <a href="https://instagram.com/thereborn" target="_blank" aria-label="Instagram" class="hover:text-cinema-gold transition-colors">

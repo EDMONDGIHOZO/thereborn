@@ -1,5 +1,5 @@
 <template>
-  <section class="directory-section">
+  <section id="directory" class="directory-section">
     <div class="container-width">
       <div class="header-row">
         <div>
