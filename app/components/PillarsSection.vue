@@ -1,62 +1,75 @@
 <template>
   <section id="pillars-section" class="pillars-container">
     <div class="pillars-grid">
-      
-      <!-- Card 1: Construction -->
-      <div class="pillar-card group">
-        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop');"></div>
+      <!-- Card 3: Cinema Hub -->
+      <NuxtLink to="/cinema-hub" class="pillar-card group active-card">
+        <div class="card-bg"
+             style="background-image: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop');"></div>
         <div class="card-overlay"></div>
         <div class="card-content">
           <div class="card-icon">
-            <img src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896007/JEPG_REBORN_tpgogx.jpg" alt="The Reborn Construction" class="card-logo rounded-full" />
+            <img src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896007/RWANDAN_CINEMA_HUB_1_ssu8jn.jpg"
+                 alt="Rwanda Cinema Hub" class="card-logo rounded-full"/>
           </div>
-          <h2 class="card-title">Construction</h2>
+          <h2 class="card-title">Cinema Hub</h2>
+          <p class="card-desc">The beating heart of Rwandan storytelling. Discover talent, movies, and more.</p>
+          <span class="card-link text-gold">Enter Hub <Icon name="ri:arrow-right-line"/></span>
+        </div>
+      </NuxtLink>
+      <!-- Card 3: Golden Pillar Pictures -->
+      <div class="pillar-card group">
+        <div class="card-bg"
+             style="background-image: url('https://images.unsplash.com/photo-1598550476439-6847785fcea6?q=80&w=2070&auto=format&fit=crop');"></div>
+        <div class="card-overlay"></div>
+        <div class="card-content">
+          <div class="card-icon">
+            <img
+                src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896006/A_GOLDEN_PILLAR_PICTURES_hyq0vf.png"
+                alt="Golden Pillar Pictures" class="card-logo"/>
+          </div>
+          <h2 class="card-title">Golden Pillar Pictures</h2>
+          <p class="card-desc">Capturing moments and telling stories through world-class photography and visual
+            arts.</p>
+          <a href="#" class="card-link">See Portfolio
+            <Icon name="ri:arrow-right-line"/>
+          </a>
+        </div>
+      </div>
+      <!-- Card 1: Construction -->
+      <div class="pillar-card group">
+        <div class="card-bg"
+             style="background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop');"></div>
+        <div class="card-overlay"></div>
+        <div class="card-content">
+          <div class="card-icon">
+            <img src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896007/JEPG_REBORN_tpgogx.jpg"
+                 alt="The Reborn Construction" class="card-logo rounded-full"/>
+          </div>
+          <h2 class="card-title-min">Construction</h2>
           <p class="card-desc">Building the foundations of tomorrow with sustainable and modern engineering.</p>
-          <a href="#" class="card-link">Learn More <Icon name="ri:arrow-right-line" /></a>
+          <a href="#" class="card-link">Learn More
+            <Icon name="ri:arrow-right-line"/>
+          </a>
         </div>
       </div>
 
       <!-- Card 2: Real Estate -->
       <div class="pillar-card group">
-        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1600596542815-e328701102b9?q=80&w=2069&auto=format&fit=crop');"></div>
+        <div class="card-bg"
+             style="background-image: url('https://images.unsplash.com/photo-1600596542815-e328701102b9?q=80&w=2069&auto=format&fit=crop');"></div>
         <div class="card-overlay"></div>
         <div class="card-content">
           <div class="card-icon">
-            <Icon name="ri:home-smile-line" class="text-6xl" /> 
+            <Icon name="ri:home-smile-line" class="text-6xl"/>
           </div>
           <h2 class="card-title">Real Estate</h2>
           <p class="card-desc">Premium properties and developments shaping the landscape of Kigali.</p>
-          <a href="#" class="card-link">View Properties <Icon name="ri:arrow-right-line" /></a>
+          <a href="#" class="card-link">View Properties
+            <Icon name="ri:arrow-right-line"/>
+          </a>
         </div>
       </div>
 
-      <!-- Card 3: Golden Pillar Pictures -->
-      <div class="pillar-card group">
-        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1598550476439-6847785fcea6?q=80&w=2070&auto=format&fit=crop');"></div>
-        <div class="card-overlay"></div>
-        <div class="card-content">
-          <div class="card-icon">
-            <img src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896006/A_GOLDEN_PILLAR_PICTURES_hyq0vf.png" alt="Golden Pillar Pictures" class="card-logo" />
-          </div>
-          <h2 class="card-title">Golden Pillar Pictures</h2>
-          <p class="card-desc">Capturing moments and telling stories through world-class photography and visual arts.</p>
-          <a href="#" class="card-link">See Portfolio <Icon name="ri:arrow-right-line" /></a>
-        </div>
-      </div>
-
-      <!-- Card 3: Cinema Hub -->
-      <NuxtLink to="/cinema-hub" class="pillar-card group active-card">
-        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop');"></div>
-        <div class="card-overlay"></div>
-        <div class="card-content">
-          <div class="card-icon">
-            <img src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896007/RWANDAN_CINEMA_HUB_1_ssu8jn.jpg" alt="Rwanda Cinema Hub" class="card-logo rounded-full" />
-          </div>
-          <h2 class="card-title">Cinema Hub</h2>
-          <p class="card-desc">The beating heart of Rwandan storytelling. Discover talent, movies, and more.</p>
-          <span class="card-link text-gold">Enter Hub <Icon name="ri:arrow-right-line" /></span>
-        </div>
-      </NuxtLink>
 
     </div>
   </section>
@@ -106,7 +119,7 @@
 
 /* Specific for Cinema Hub to always be colorful or on hover? Let's stick to hover color reveal */
 .active-card .card-bg {
-    filter: grayscale(0%); /* Optional: Make cinema hub always colored to highlight it's the main app feature right now */
+  filter: grayscale(0%); /* Optional: Make cinema hub always colored to highlight it's the main app feature right now */
 }
 
 .card-overlay {
@@ -115,13 +128,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.1) 100%);
   z-index: 2;
   transition: background 0.3s;
 }
 
 .pillar-card:hover .card-overlay {
-  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.2) 100%);
 }
 
 .card-content {
@@ -153,6 +166,14 @@
 .card-title {
   font-family: 'Special Gothic Expanded One', sans-serif;
   font-size: 2rem;
+  color: white;
+  margin-bottom: 1rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.card-title-min {
+  font-family: 'Special Gothic Expanded One', sans-serif;
+  font-size: 1.5rem;
   color: white;
   margin-bottom: 1rem;
   line-height: 1;
@@ -203,7 +224,7 @@
     grid-template-columns: repeat(4, 1fr);
     height: 100vh; /* Full screen height on desktop */
   }
-  
+
   .pillar-card {
     height: 100%;
     border-bottom: none;
