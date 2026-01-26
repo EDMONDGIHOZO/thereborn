@@ -11,7 +11,7 @@
             <img src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896007/RWANDAN_CINEMA_HUB_1_ssu8jn.jpg"
                  alt="Rwanda Cinema Hub" class="card-logo rounded-full"/>
           </div>
-          <h2 class="card-title">Cinema Hub</h2>
+          <h2 class="card-title">Rwandan Cinema Hub</h2>
           <p class="card-desc">The beating heart of Rwandan storytelling. Discover talent, movies, and more.</p>
           <span class="card-link text-gold">Enter Hub <Icon name="ri:arrow-right-line"/></span>
         </div>
@@ -27,7 +27,7 @@
                 src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896006/A_GOLDEN_PILLAR_PICTURES_hyq0vf.png"
                 alt="Golden Pillar Pictures" class="card-logo"/>
           </div>
-          <h2 class="card-title">Golden Pillar Pictures</h2>
+          <h2 class="card-title">A GOLDEN PILLAR PICTURES</h2>
           <p class="card-desc">Capturing moments and telling stories through world-class photography and visual
             arts.</p>
           <a href="#" class="card-link">See Portfolio
@@ -45,7 +45,7 @@
             <img src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896007/JEPG_REBORN_tpgogx.jpg"
                  alt="The Reborn Construction" class="card-logo rounded-full"/>
           </div>
-          <h2 class="card-title-min">Construction</h2>
+          <h2 class="card-title-min">THE REBORN CONSTRUCTION</h2>
           <p class="card-desc">Building the foundations of tomorrow with sustainable and modern engineering.</p>
           <a href="#" class="card-link">Learn More
             <Icon name="ri:arrow-right-line"/>
@@ -56,14 +56,14 @@
       <!-- Card 2: Real Estate -->
       <div class="pillar-card group">
         <div class="card-bg"
-             style="background-image: url('https://images.unsplash.com/photo-1600596542815-e328701102b9?q=80&w=2069&auto=format&fit=crop');"></div>
+             style="background-image: url('https://res.cloudinary.com/yebalabs-com/image/upload/v1769420565/THE_REBORN_REAL_ESTATE_og9nmq.jpg');"></div>
         <div class="card-overlay"></div>
         <div class="card-content">
           <div class="card-icon">
             <Icon name="ri:home-smile-line" class="text-6xl"/>
           </div>
-          <h2 class="card-title">Real Estate</h2>
-          <p class="card-desc">Premium properties and developments shaping the landscape of Kigali.</p>
+          <h2 class="card-title">THE REBORN REAL ESTATE</h2>
+          <p class="card-desc">Premium properties and developments shaping the landscape of Rwanda.</p>
           <a href="#" class="card-link">View Properties
             <Icon name="ri:arrow-right-line"/>
           </a>
