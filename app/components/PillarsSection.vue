@@ -9,7 +9,7 @@
         <div class="card-content">
           <div class="card-icon">
             <img src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896007/RWANDAN_CINEMA_HUB_1_ssu8jn.jpg"
-                 alt="Rwanda Cinema Hub" class="card-logo rounded-full"/>
+                 alt="Rwanda Cinema Hub" class="card-logo rounded-lg"/>
           </div>
           <h2 class="card-title">Rwandan Cinema Hub</h2>
           <p class="card-desc">The beating heart of Rwandan storytelling. Discover talent, movies, and more.</p>
@@ -25,7 +25,7 @@
           <div class="card-icon">
             <img
                 src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896007/A_GOLDEN_PILLAR_PICTURES1_awsudr.png"
-                alt="Golden Pillar Pictures" class="card-logo"/>
+                alt="Golden Pillar Pictures" class="card-logo rounded-lg"/>
           </div>
           <h2 class="card-title">A GOLDEN PILLAR PICTURES</h2>
           <p class="card-desc">Capturing moments and telling stories through world-class photography and visual
@@ -43,9 +43,9 @@
         <div class="card-content">
           <div class="card-icon">
             <img src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896007/JEPG_REBORN_tpgogx.jpg"
-                 alt="The Reborn Construction" class="card-logo rounded-full"/>
+                 alt="The Reborn Construction" class="card-logo rounded-lg"/>
           </div>
-          <h2 class="card-title-min">THE REBORN CONSTRUCTION</h2>
+          <h2 class="card-title">THE REBORN CONSTRUCTION</h2>
           <p class="card-desc">Building the foundations of tomorrow with sustainable and modern engineering.</p>
           <a href="#" class="card-link">Learn More
             <Icon name="ri:arrow-right-line"/>
@@ -61,7 +61,7 @@
         <div class="card-content">
           <div class="card-icon">
             <img src="https://res.cloudinary.com/yebalabs-com/image/upload/v1769420565/THE_REBORN_REAL_ESTATE_og9nmq.jpg"
-                 alt="The Reborn Construction" class="card-logo rounded-full"/>
+                 alt="The Reborn Construction" class="card-logo rounded-lg"/>
           </div>
           <h2 class="card-title">THE REBORN REAL ESTATE</h2>
           <p class="card-desc">Premium properties and developments shaping the landscape of Rwanda.</p>
@@ -159,7 +159,7 @@
 }
 
 .card-logo {
-  height: 80px;
+  height: 100px;
   width: auto;
   object-fit: contain;
 }
@@ -172,18 +172,10 @@
   line-height: 1;
   text-transform: uppercase;
 }
-.card-title-min {
-  font-family: 'Special Gothic Expanded One', sans-serif;
-  font-size: 1.9rem;
-  color: white;
-  margin-bottom: 1rem;
-  line-height: 1;
-  text-transform: uppercase;
-}
 
 @media (min-width: 1280px) {
   .card-title {
-    font-size: 2.5rem;
+    font-size: 2.1rem;
   }
 }
 
