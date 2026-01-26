@@ -56,11 +56,12 @@
       <!-- Card 2: Real Estate -->
       <div class="pillar-card group">
         <div class="card-bg"
-             style="background-image: url('https://res.cloudinary.com/yebalabs-com/image/upload/v1769420565/THE_REBORN_REAL_ESTATE_og9nmq.jpg');"></div>
+             style="background-image: url('https://res.cloudinary.com/yebalabs-com/image/upload/v1769421202/THE_REBORN_REAL_ESTATE_FTO_acfycl.jpg');"></div>
         <div class="card-overlay"></div>
         <div class="card-content">
           <div class="card-icon">
-            <Icon name="ri:home-smile-line" class="text-6xl"/>
+            <img src="https://res.cloudinary.com/yebalabs-com/image/upload/v1769420565/THE_REBORN_REAL_ESTATE_og9nmq.jpg"
+                 alt="The Reborn Construction" class="card-logo rounded-full"/>
           </div>
           <h2 class="card-title">THE REBORN REAL ESTATE</h2>
           <p class="card-desc">Premium properties and developments shaping the landscape of Rwanda.</p>
