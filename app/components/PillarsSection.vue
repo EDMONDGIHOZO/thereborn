@@ -24,7 +24,7 @@
         <div class="card-content">
           <div class="card-icon">
             <img
-                src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896006/A_GOLDEN_PILLAR_PICTURES_hyq0vf.png"
+                src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896007/A_GOLDEN_PILLAR_PICTURES1_awsudr.png"
                 alt="Golden Pillar Pictures" class="card-logo"/>
           </div>
           <h2 class="card-title">A GOLDEN PILLAR PICTURES</h2>
@@ -174,7 +174,7 @@
 }
 .card-title-min {
   font-family: 'Special Gothic Expanded One', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.9rem;
   color: white;
   margin-bottom: 1rem;
   line-height: 1;
