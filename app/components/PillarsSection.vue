@@ -65,9 +65,9 @@
           </div>
           <h2 class="card-title">THE REBORN REAL ESTATE</h2>
           <p class="card-desc">Premium properties and developments shaping the landscape of Rwanda.</p>
-          <a href="#" class="card-link">View Properties
+          <NuxtLink to="/real-estate" class="card-link">Learn More
             <Icon name="ri:arrow-right-line"/>
-          </a>
+          </NuxtLink>
         </div>
       </div>
 
