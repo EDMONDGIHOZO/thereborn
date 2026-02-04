@@ -7,6 +7,12 @@
         CINEMA<br>
         <span class="hub-text">HUB</span>
       </h1>
+      <div class="mt-8">
+        <NuxtLink to="/cinema-hub/notices" class="publications-btn">
+          <span>Publications</span>
+          <Icon name="ri:arrow-right-line" class="ml-2" />
+        </NuxtLink>
+      </div>
     </div>
 
     <!-- Right Section: Gold Diagonal -->
@@ -162,5 +168,27 @@ const scrollToDirectory = () => {
   .hero-title {
     font-size: 8rem; /* 9xl */
   }
+}
+
+.publications-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-family: 'Lexend', sans-serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.publications-btn:hover {
+  border-color: #F5B700;
+  color: #F5B700;
+  background: rgba(245, 183, 0, 0.1);
+  padding-left: 2.5rem; /* Slide effect */
 }
 </style>

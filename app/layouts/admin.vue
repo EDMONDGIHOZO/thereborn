@@ -47,6 +47,13 @@ const isSidebarOpen = ref(false)
             <Icon name="ri:movie-2-line" class="text-xl mr-3 flex-shrink-0" />
             <span class="font-medium">Movies</span>
         </NuxtLink>
+        <NuxtLink to="/admin/notices"
+            @click="isSidebarOpen = false"
+            class="flex items-center px-6 py-4 text-gray-400 hover:bg-gray-800 hover:text-white transition-colors border-l-4 border-transparent hover:border-white group"
+            active-class="bg-gray-800 text-white border-white">
+            <Icon name="ri:article-line" class="text-xl mr-3 flex-shrink-0" />
+            <span class="font-medium">Publications</span>
+        </NuxtLink>
       </nav>
 
       <div class="p-4 border-t border-gray-800">
