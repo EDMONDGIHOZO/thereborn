@@ -3,9 +3,9 @@
     <!-- Left Section: Title -->
     <div class="hero-left">
       <h1 class="hero-title">
-        RWANDA<br>
-        CINEMA<br>
-        <span class="hub-text">HUB</span>
+        THE REBORN<br>
+        ENTERTAINMENT<br>
+        <span class="hub-text">FILMS</span>
       </h1>
       <div class="mt-8">
         <NuxtLink to="/cinema-hub/notices" class="publications-btn">
@@ -19,7 +19,7 @@
     <div class="hero-right">
       <div class="content-box">
         <p class="hero-description">
-          The central ecosystem for Rwanda's film industry. Explore a curated directory of actors, directors, producers, and creatives shaping the future of African cinema.
+          The central ecosystem for Rwanda's film industry and visual arts. Explore a curated directory of actors, directors, producers, and creatives shaping the future of African storytelling.
         </p>
         
         <NuxtLink to="/cinema-hub/join" class="cta-button inline-block text-center">
@@ -166,7 +166,7 @@ const scrollToDirectory = () => {
 
 @media (min-width: 1024px) {
   .hero-title {
-    font-size: 8rem; /* 9xl */
+    font-size: 5rem; /* Reduced from 8rem to fit 'ENTERTAINMENT' */
   }
 }
 

@@ -10,8 +10,9 @@
         </div>
         
         <div class="flex flex-col gap-3 items-center md:items-start text-gray-400">
-           <a href="tel:+250788347428" class="font-body hover:text-cinema-gold transition-colors tracking-wide">+250788261877</a>
-           <div class="flex items-center gap-4">
+           <a href="tel:+250788261877" class="font-body hover:text-cinema-gold transition-colors tracking-wide">+250788261877</a>
+           <a href="mailto:thereborn.limited@gmail.com" class="font-body text-sm hover:text-cinema-gold transition-colors">thereborn.limited@gmail.com</a>
+           <div class="flex items-center gap-4 mt-2">
              <div class="flex gap-3">
                <a href="https://instagram.com/thereborn" target="_blank" aria-label="Instagram" class="hover:text-cinema-gold transition-colors">
                  <Icon name="mdi:instagram" size="24" />
@@ -53,8 +54,7 @@ const footerLinks = [
   { label: 'The Reborn Company', path: '/' },
   { label: 'The Reborn Construction', path: '/construction' },
   { label: 'The Reborn Real Estate', path: '/real-estate' },
-  { label: 'A Golden Pillar Pictures', path: '/golden-pillar' },
-  { label: 'Rwandan Cinema Hub', path: '/cinema-hub' },
+  { label: 'The Reborn Entertainment Films', path: '/cinema-hub' },
 ]
 </script>
 

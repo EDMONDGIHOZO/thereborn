@@ -77,6 +77,81 @@
        </div>
     </section>
 
+    <!-- Contact Us Section -->
+    <section id="contact" class="contact-section py-20 px-6 bg-black border-t border-gray-900">
+      <div class="container-width">
+        <div class="text-center mb-16">
+          <h2 class="section-heading mb-4">Get In Touch</h2>
+          <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+            Have a project in mind? Reach out to our specific divisions for tailored support and expert guidance.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- General Card -->
+          <div class="contact-card group">
+            <div class="card-icon">
+              <Icon name="ri:customer-service-2-fill" class="text-3xl text-white group-hover:text-black transition-colors" />
+            </div>
+            <h3 class="card-title">General Inquiries</h3>
+            <div class="contact-details">
+              <a href="tel:+250788261877" class="contact-link">
+                <Icon name="ri:phone-fill" class="mr-2" /> +250 788 261 877
+              </a>
+              <a href="https://wa.me/+250788261877" target="_blank" class="contact-link">
+                <Icon name="ri:whatsapp-fill" class="mr-2" /> WhatsApp Us
+              </a>
+              <a href="mailto:thereborn.limited@gmail.com" class="contact-link">
+                <Icon name="ri:mail-send-fill" class="mr-2" /> thereborn.limited@gmail.com
+              </a>
+            </div>
+          </div>
+
+          <!-- Real Estate Card -->
+          <div class="contact-card group">
+            <div class="card-icon">
+              <Icon name="ri:building-2-fill" class="text-3xl text-white group-hover:text-black transition-colors" />
+            </div>
+            <h3 class="card-title">Real Estate</h3>
+            <div class="contact-details">
+              <p class="text-sm text-gray-400 mb-2">For property sales, buying, and surveying.</p>
+              <a href="mailto:thereborn.realestate@gmail.com" class="contact-link">
+                thereborn.realestate@gmail.com
+              </a>
+            </div>
+          </div>
+
+          <!-- Construction Card -->
+          <div class="contact-card group">
+            <div class="card-icon">
+              <Icon name="ri:hammer-fill" class="text-3xl text-white group-hover:text-black transition-colors" />
+            </div>
+            <h3 class="card-title">Construction</h3>
+            <div class="contact-details">
+              <p class="text-sm text-gray-400 mb-2">For engineering, materials, and projects.</p>
+              <a href="mailto:thereborn.construction@gmail.com" class="contact-link">
+               thereborn.construction@gmail.com
+              </a>
+            </div>
+          </div>
+
+          <!-- Entertainment Card -->
+          <div class="contact-card group">
+            <div class="card-icon">
+              <Icon name="ri:movie-2-fill" class="text-3xl text-white group-hover:text-black transition-colors" />
+            </div>
+            <h3 class="card-title">Entertainment</h3>
+            <div class="contact-details">
+              <p class="text-sm text-gray-400 mb-2">For cinema, casting, and production.</p>
+              <a href="mailto:thereborn.entertainment@gmail.com" class="contact-link">
+              thereborn.entertainment@gmail.com
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 </template>
 
@@ -251,5 +326,67 @@ useHead({
   .image-composition {
     display: none;
   }
+}
+/* Contact Section Styles */
+.contact-card {
+  background: rgba(255, 255, 255, 0.05); /* slightly lighter than black */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.contact-card:hover {
+  border-color: #F5B700;
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.card-icon {
+  width: 4rem;
+  height: 4rem;
+  background: #1f2937;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.contact-card:hover .card-icon {
+  background: #F5B700;
+}
+
+.card-title {
+  font-family: 'Special Gothic Expanded One', sans-serif;
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  width: 100%;
+}
+
+.contact-link {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+  display: inline-flex;
+  align-items: center;
+  word-break: break-all; /* Ensure emails enable wrapping if needed */
+}
+
+.contact-link:hover {
+  color: #F5B700;
 }
 </style>

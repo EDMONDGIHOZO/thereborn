@@ -7,9 +7,9 @@
 
 <script setup>
 useHead({
-  title: 'Rwanda Cinema Hub | The Reborn',
+  title: 'The Reborn Entertainment Films | The Reborn',
   meta: [
-    { name: 'description', content: 'Discover the talent of Rwanda Cinema. A directory of actors, directors, and creatives.' }
+    { name: 'description', content: 'Discover the talent of Rwanda Cinema and world-class visual arts.' }
   ]
 })
 </script>

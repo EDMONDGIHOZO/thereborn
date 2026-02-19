@@ -304,19 +304,19 @@
 
              <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
                 <!-- Phone -->
-                <a href="tel:+250782012480" class="group bg-black text-white min-w-[200px] px-8 py-4 rounded-xl font-bold hover:bg-zinc-800 transition shadow-xl flex items-center justify-center gap-3">
+                <a href="tel:+250788261877" class="group bg-black text-white min-w-[200px] px-8 py-4 rounded-xl font-bold hover:bg-zinc-800 transition shadow-xl flex items-center justify-center gap-3">
                     <Icon name="ri:phone-fill" class="text-gold group-hover:scale-110 transition-transform" />
                     <span>Call Us</span>
                 </a>
 
                 <!-- Email -->
-                <a href="mailto:thereborn.limited@gmail.com" class="group bg-white/90 backdrop-blur text-black min-w-[200px] px-8 py-4 rounded-xl font-bold hover:bg-white transition shadow-xl flex items-center justify-center gap-3">
+                <a href="mailto:thereborn.realestate@gmail.com" class="group bg-white/90 backdrop-blur text-black min-w-[200px] px-8 py-4 rounded-xl font-bold hover:bg-white transition shadow-xl flex items-center justify-center gap-3">
                      <Icon name="ri:mail-send-fill" class="text-gold group-hover:scale-110 transition-transform" />
                      <span>Email Us</span>
                 </a>
 
                 <!-- WhatsApp -->
-                 <a href="https://wa.me/+250788347428" target="_blank" class="group bg-[#25D366] text-white min-w-[200px] px-8 py-4 rounded-xl font-bold hover:bg-[#20bd5a] transition shadow-xl flex items-center justify-center gap-3">
+                 <a href="https://wa.me/+250788261877" target="_blank" class="group bg-[#25D366] text-white min-w-[200px] px-8 py-4 rounded-xl font-bold hover:bg-[#20bd5a] transition shadow-xl flex items-center justify-center gap-3">
                      <Icon name="ri:whatsapp-fill" class="text-white group-hover:scale-110 transition-transform" />
                      <span>WhatsApp</span>
                 </a>

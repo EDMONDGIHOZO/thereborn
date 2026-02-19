@@ -1,40 +1,21 @@
 <template>
   <section id="pillars-section" class="pillars-container">
     <div class="pillars-grid">
-      <!-- Card 3: Cinema Hub -->
+      <!-- Card 1: The Reborn Entertainment Films (Merged) -->
       <NuxtLink to="/cinema-hub" class="pillar-card group active-card">
-        <div class="card-bg"
-             style="background-image: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop');"></div>
-        <div class="card-overlay"></div>
-        <div class="card-content">
-          <div class="card-icon">
-            <img src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896007/RWANDAN_CINEMA_HUB_1_ssu8jn.jpg"
-                 alt="Rwanda Cinema Hub" class="card-logo rounded-lg"/>
-          </div>
-          <h2 class="card-title">Rwandan Cinema Hub</h2>
-          <p class="card-desc">The beating heart of Rwandan storytelling. Discover talent, movies, and more.</p>
-          <span class="card-link text-gold">Enter Hub <Icon name="ri:arrow-right-line"/></span>
-        </div>
-      </NuxtLink>
-      <!-- Card 3: Golden Pillar Pictures -->
-      <div class="pillar-card group">
         <div class="card-bg"
              style="background-image: url('https://images.unsplash.com/photo-1598550476439-6847785fcea6?q=80&w=2070&auto=format&fit=crop');"></div>
         <div class="card-overlay"></div>
         <div class="card-content">
           <div class="card-icon">
-            <img
-                src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896007/A_GOLDEN_PILLAR_PICTURES1_awsudr.png"
-                alt="Golden Pillar Pictures" class="card-logo rounded-lg"/>
+            <img src="https://res.cloudinary.com/yebalabs-com/image/upload/v1771510570/LOGO_iw1psm.png"
+                 alt="The Reborn Entertainment Films" class="card-logo rounded-lg"/>
           </div>
-          <h2 class="card-title">A GOLDEN PILLAR PICTURES</h2>
-          <p class="card-desc">Capturing moments and telling stories through world-class photography and visual
-            arts.</p>
-          <a href="#" class="card-link">See Portfolio
-            <Icon name="ri:arrow-right-line"/>
-          </a>
+          <h2 class="card-title">THE REBORN ENTERTAINMENT FILMS</h2>
+          <p class="card-desc">The beating heart of Rwandan storytelling. Discover talent, movies, and world-class visual arts.</p>
+          <span class="card-link text-gold">Enter Hub <Icon name="ri:arrow-right-line"/></span>
         </div>
-      </div>
+      </NuxtLink>
       <!-- Card 1: Construction -->
       <div class="pillar-card group">
         <div class="card-bg"
@@ -214,7 +195,7 @@
 
 @media (min-width: 1024px) {
   .pillars-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     height: 100vh; /* Full screen height on desktop */
   }
 
