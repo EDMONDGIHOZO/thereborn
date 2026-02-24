@@ -2,7 +2,7 @@
   <section id="pillars-section" class="pillars-container">
     <div class="pillars-grid">
       <!-- Card 1: The Reborn Entertainment Films (Merged) -->
-      <NuxtLink to="/cinema-hub" class="pillar-card group active-card">
+      <div class="pillar-card group">
         <div class="card-bg"
              style="background-image: url('https://images.unsplash.com/photo-1598550476439-6847785fcea6?q=80&w=2070&auto=format&fit=crop');"></div>
         <div class="card-overlay"></div>
@@ -13,7 +13,20 @@
           </div>
           <h2 class="card-title">THE REBORN ENTERTAINMENT FILMS</h2>
           <p class="card-desc">The beating heart of Rwandan storytelling. Discover talent, movies, and world-class visual arts.</p>
-          <span class="card-link text-gold">Enter Hub <Icon name="ri:arrow-right-line"/></span>
+        </div>
+      </div>
+
+      <!-- Card: Cinema Hub -->
+      <NuxtLink to="/cinema-hub" class="pillar-card group active-card">
+        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop');"></div>
+        <div class="card-overlay"></div>
+        <div class="card-content">
+          <div class="card-icon">
+            <img src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896007/RWANDAN_CINEMA_HUB_1_ssu8jn.jpg" alt="Rwanda Cinema Hub" class="card-logo rounded-full" />
+          </div>
+          <h2 class="card-title">CINEMA HUB</h2>
+          <p class="card-desc">The beating heart of Rwandan storytelling. Discover talent, movies, and more.</p>
+          <span class="card-link text-gold">Enter Hub <Icon name="ri:arrow-right-line" /></span>
         </div>
       </NuxtLink>
       <!-- Card 1: Construction -->
@@ -195,7 +208,7 @@
 
 @media (min-width: 1024px) {
   .pillars-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     height: 100vh; /* Full screen height on desktop */
   }
 
