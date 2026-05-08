@@ -6,6 +6,10 @@
 </template>
 
 <script setup>
+definePageMeta({
+  scrollToTop: true
+})
+
 useHead({
   title: 'The Reborn Entertainment Films | The Reborn',
   meta: [

@@ -54,7 +54,7 @@ const footerLinks = [
   { label: 'The Reborn Company', path: '/' },
   { label: 'The Reborn Construction', path: '/construction' },
   { label: 'The Reborn Real Estate', path: '/real-estate' },
-  { label: 'The Reborn Entertainment Films', path: '/cinema-hub' },
+  { label: 'The Reborn Entertainment Films', path: '/entertainment-films' },
 ]
 </script>
 
