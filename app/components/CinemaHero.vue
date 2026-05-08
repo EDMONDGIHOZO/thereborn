@@ -3,9 +3,9 @@
     <!-- Left Section: Title -->
     <div class="hero-left">
       <h1 class="hero-title">
-        THE REBORN<br>
-        ENTERTAINMENT<br>
-        <span class="hub-text">FILMS</span>
+        RWANDA<br>
+        CINEMA<br>
+        <span class="hub-text">HUB</span>
       </h1>
       <div class="mt-8">
         <NuxtLink to="/cinema-hub/notices" class="publications-btn">

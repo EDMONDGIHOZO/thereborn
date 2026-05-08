@@ -11,9 +11,9 @@ definePageMeta({
 })
 
 useHead({
-  title: 'The Reborn Entertainment Films | The Reborn',
+  title: 'Rwanda Cinema Hub | The Reborn',
   meta: [
-    { name: 'description', content: 'Discover the talent of Rwanda Cinema and world-class visual arts.' }
+    { name: 'description', content: "The central ecosystem for Rwanda's film industry and visual arts." }
   ]
 })
 </script>
