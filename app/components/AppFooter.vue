@@ -51,10 +51,11 @@
 
 <script setup>
 const footerLinks = [
-  { label: 'The Reborn Company', path: '/' },
-  { label: 'The Reborn Construction', path: '/construction' },
-  { label: 'The Reborn Real Estate', path: '/real-estate' },
-  { label: 'The Reborn Entertainment Films', path: '/entertainment-films' },
+  { label: 'The reborn company', path: '/about' },
+  { label: 'Rwanda cinema hub', path: '/cinema-hub' },
+  { label: 'The reborn entertainment films', path: '/entertainment-films' },
+  { label: 'The reborn construction', path: '/about' },
+  { label: 'The reborn real estate', path: '/real-estate' },
 ]
 </script>
 

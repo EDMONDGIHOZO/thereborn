@@ -299,7 +299,7 @@
         <div class="relative z-10 max-w-4xl mx-auto">
             <h2 class="text-4xl md:text-6xl font-bold mb-6 font-display">Ready to find the perfect property?</h2>
             <p class="text-xl md:text-2xl mb-12 font-medium opacity-90 max-w-2xl mx-auto">
-                Contact Reborn Real Estate for a free consultation and a tailored plan to meet your property goals.
+                Contact The Reborn Real Estate for a free consultation and a tailored plan to meet your property goals.
             </p>
 
              <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
