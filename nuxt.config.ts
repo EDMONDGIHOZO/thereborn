@@ -7,12 +7,5 @@ export default defineNuxtConfig({
       apiBase: 'http://localhost:8080/api/v1'
     }
   },
-  modules: ['@nuxt/icon', '@nuxt/image', '@nuxt/fonts', '@nuxtjs/tailwindcss'],
-  fonts: {
-    families: [
-      { name: 'Lexend', provider: 'google' },
-      { name: 'Gravitas One', provider: 'google' },
-      { name: 'IBM Plex Sans', provider: 'google' }
-    ]
-  }
+  modules: ['@nuxt/icon', '@nuxt/image', '@nuxtjs/tailwindcss']
 })
