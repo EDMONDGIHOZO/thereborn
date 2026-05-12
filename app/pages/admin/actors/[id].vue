@@ -11,10 +11,11 @@ definePageMeta({
 const { token } = useAuth()
 const config = useRuntimeConfig()
 const ADMIN_API = `${config.public.apiBase}/admin`
-const PUBLIC_API = `${config.public.apiBase}`
 const route = useRoute()
 const router = useRouter()
 const id = route.params.id
+
+type ActorStatus = 'PENDING' | 'APPROVED' | 'DISABLED'
 
 const isLoading = ref(false)
 const actor = ref<any>(null)
@@ -22,6 +23,7 @@ const originalForm = ref<any>(null)
 
 // Form State
 const form = reactive({
+    status: 'PENDING' as ActorStatus,
     fullName: '',
     birthday: '',
     gender: 'MALE',
@@ -31,6 +33,56 @@ const form = reactive({
     profileAvatarUrl: '',
     cinemaRoles: [] as string[],
     gallery: [] as string[]
+})
+
+const getActorStatus = (data: any): ActorStatus => {
+    if (
+        data?.status === 'DISABLED' ||
+        data?.disabled === true ||
+        data?.isDisabled === true ||
+        data?.user?.disabled === true ||
+        data?.user?.isDisabled === true ||
+        data?.user?.enabled === false ||
+        data?.user?.active === false
+    ) {
+        return 'DISABLED'
+    }
+
+    return data?.approved ? 'APPROVED' : 'PENDING'
+}
+
+const canDisableActor = computed(() => {
+    return Boolean(
+        typeof actor.value?.status === 'string' ||
+        Object.prototype.hasOwnProperty.call(actor.value ?? {}, 'disabled') ||
+        Object.prototype.hasOwnProperty.call(actor.value ?? {}, 'isDisabled') ||
+        (actor.value?.user && Object.prototype.hasOwnProperty.call(actor.value.user, 'enabled')) ||
+        (actor.value?.user && Object.prototype.hasOwnProperty.call(actor.value.user, 'active'))
+    )
+})
+
+const statusOptions = computed<Array<{ value: ActorStatus; label: string; hint: string }>>(() => [
+    {
+        value: 'PENDING',
+        label: 'Pending Approval',
+        hint: 'The actor stays hidden from the public directory until you approve them.'
+    },
+    {
+        value: 'APPROVED',
+        label: 'Approved',
+        hint: 'The actor can appear in the public directory and use the approved profile state.'
+    },
+    {
+        value: 'DISABLED',
+        label: 'Disabled',
+        hint: canDisableActor.value
+            ? 'Use this when you want to deactivate the actor from admin.'
+            : 'Disable needs backend support for a disable field before it can be saved.'
+    }
+])
+
+const currentStatusMeta = computed(() => {
+    return statusOptions.value.find((option) => option.value === form.status) ?? statusOptions.value[0]
 })
 
 // Helper for Tag Input (Roles)
@@ -103,11 +155,13 @@ const handleAvatarUpload = async (event: Event) => {
 // Data Fetching
 const fetchActor = async () => {
     try {
-        // Fetch from Public API to get specific ID without filtering
-        const data = await $fetch<any>(`${PUBLIC_API}/actors/${id}`)
+        const data = await $fetch<any>(`${ADMIN_API}/actors/${id}`, {
+            headers: { Authorization: `Bearer ${token.value}` }
+        })
         actor.value = data
         
         // Populate Form
+        form.status = getActorStatus(data)
         form.fullName = data.fullName || ''
         form.birthday = data.birthday ? new Date(data.birthday).toISOString().split('T')[0] : ''
         form.gender = data.gender || 'MALE'
@@ -115,7 +169,6 @@ const fetchActor = async () => {
         form.province = data.province || ''
         form.about = data.about || ''
         form.profileAvatarUrl = data.profileAvatarUrl || ''
-        form.cinemaRoles = data.cinemaRoles ? [...data.cinemaRoles] : []
         form.cinemaRoles = data.cinemaRoles ? [...data.cinemaRoles] : []
         form.gallery = data.gallery ? [...data.gallery] : []
         
@@ -136,6 +189,11 @@ onMounted(() => {
 const updateActor = async () => {
     isLoading.value = true
     try {
+        if (form.status === 'DISABLED' && !canDisableActor.value) {
+            toast.error('This actor cannot be disabled yet because the API does not expose a disable field.')
+            return
+        }
+
         const payload: any = {}
         let hasChanges = false
 
@@ -151,6 +209,30 @@ const updateActor = async () => {
         if (form.profileAvatarUrl !== originalForm.value.profileAvatarUrl) { payload.profileAvatarUrl = form.profileAvatarUrl; hasChanges = true }
         if (!isEqual(form.cinemaRoles, originalForm.value.cinemaRoles)) { payload.cinemaRoles = form.cinemaRoles; hasChanges = true }
         if (!isEqual(form.gallery, originalForm.value.gallery)) { payload.gallery = form.gallery; hasChanges = true }
+        if (form.status !== originalForm.value.status) {
+            const isApproved = form.status === 'APPROVED'
+            const isDisabled = form.status === 'DISABLED'
+
+            payload.approved = isApproved
+
+            if (typeof actor.value?.status === 'string') {
+                payload.status = form.status
+            }
+            if (Object.prototype.hasOwnProperty.call(actor.value ?? {}, 'disabled')) {
+                payload.disabled = isDisabled
+            }
+            if (Object.prototype.hasOwnProperty.call(actor.value ?? {}, 'isDisabled')) {
+                payload.isDisabled = isDisabled
+            }
+            if (actor.value?.user && Object.prototype.hasOwnProperty.call(actor.value.user, 'enabled')) {
+                payload.enabled = !isDisabled
+            }
+            if (actor.value?.user && Object.prototype.hasOwnProperty.call(actor.value.user, 'active')) {
+                payload.active = !isDisabled
+            }
+
+            hasChanges = true
+        }
 
         if (!hasChanges) {
             toast.info('No changes to save.')
@@ -163,10 +245,13 @@ const updateActor = async () => {
             body: payload,
             headers: { Authorization: `Bearer ${token.value}` }
         })
-        
-        toast.success('Profile updated successfully!')
-        // Refresh data
+
+        // Refresh the form first, then show a persistent success toast.
         await fetchActor()
+        await nextTick()
+        toast.success('Profile updated successfully!', {
+            duration: 4000
+        })
         
     } catch (e) {
         console.error('Failed to update actor', e)
@@ -200,7 +285,7 @@ const updateActor = async () => {
             <button @click="updateActor" :disabled="isLoading" 
                 class="flex items-center justify-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors shadow-sm disabled:opacity-70 disabled:cursor-not-allowed font-medium w-full sm:w-auto">
                 <Icon v-if="isLoading" name="ri:loader-4-line" class="animate-spin" />
-                <span>{{ isLoading ? 'Saving...' : 'Save Changes' }}</span>
+                <span>{{ isLoading ? 'Saving…' : 'Save Changes' }}</span>
             </button>
         </div>
     </header>
@@ -312,6 +397,28 @@ const updateActor = async () => {
 
         <!-- SIDEBAR -->
         <div class="space-y-8">
+
+            <!-- Status Card -->
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                <h3 class="text-lg font-bold text-gray-800 mb-6 border-b pb-2">Actor Status</h3>
+
+                <div class="space-y-3">
+                    <label for="actor-status" class="block text-sm font-semibold text-gray-600">Status</label>
+                    <select id="actor-status" v-model="form.status" name="status" class="input-field">
+                        <option
+                            v-for="option in statusOptions"
+                            :key="option.value"
+                            :value="option.value"
+                            :disabled="option.value === 'DISABLED' && !canDisableActor"
+                        >
+                            {{ option.label }}
+                        </option>
+                    </select>
+                    <p aria-live="polite" class="text-sm text-gray-500">
+                        {{ currentStatusMeta.hint }}
+                    </p>
+                </div>
+            </div>
             
             <!-- Avatar Card -->
             <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
@@ -348,9 +455,16 @@ const updateActor = async () => {
                          <span class="font-mono font-bold">{{ actor.likes || 0 }}</span>
                      </div>
                      <div class="flex justify-between">
-                         <span class="text-gray-500">Approved</span>
-                         <span :class="actor.approved ? 'text-green-600' : 'text-amber-600'" class="font-bold">
-                             {{ actor.approved ? 'Yes' : 'Pending' }}
+                         <span class="text-gray-500">Status</span>
+                         <span
+                             :class="{
+                                 'text-green-600': form.status === 'APPROVED',
+                                 'text-amber-600': form.status === 'PENDING',
+                                 'text-red-600': form.status === 'DISABLED'
+                             }"
+                             class="font-bold"
+                         >
+                             {{ currentStatusMeta.label }}
                          </span>
                      </div>
                      <div class="flex justify-between">
@@ -373,11 +487,10 @@ const updateActor = async () => {
     padding: 0.75rem 1rem;
     border-radius: 0.375rem;
     color: #1f2937;
-    outline: none;
-    transition: all 0.2s;
+    transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
 }
 
-.input-field:focus {
+.input-field:focus-visible {
     border-color: #2563eb;
     background-color: white;
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);

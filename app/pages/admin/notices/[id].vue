@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useAuth } from '@/composables/useAuth'
 import { useFileUpload } from '@/composables/useFileUpload'
+import { toast } from 'vue-sonner'
 
 definePageMeta({
   layout: 'admin',
@@ -49,7 +50,7 @@ const handleImageUpload = async (event: Event) => {
         form.coverImage = url
     } catch (e) {
         console.error('Upload failed', e)
-        alert('Failed to upload image')
+        toast.error('Failed to upload image')
     } finally {
         isUploading.value = false
         if (fileInput.value) fileInput.value.value = ''
@@ -66,11 +67,11 @@ async function submit() {
         Authorization: `Bearer ${token.value}`
       }
     })
-    // Show success?
-    router.push('/admin/notices')
+    toast.success('Notice updated successfully!')
+    await router.push('/admin/notices')
   } catch (e) {
     console.error(e)
-    alert('Failed to update notice. Check console for details.')
+    toast.error('Failed to update notice. Check console for details.')
   } finally {
     loading.value = false
   }

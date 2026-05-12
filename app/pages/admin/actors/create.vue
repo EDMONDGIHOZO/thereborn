@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useAuth } from '@/composables/useAuth'
+import { toast } from 'vue-sonner'
 
 definePageMeta({
   layout: 'admin',
@@ -30,10 +31,11 @@ const createActor = async () => {
             body: form.value,
             headers: { Authorization: `Bearer ${token.value}` }
         })
-        router.push('/admin/actors')
+        toast.success('Actor created successfully!')
+        await router.push('/admin/actors')
     } catch (e) {
         console.error('Failed to create actor', e)
-        alert('Failed to create actor. Email might already exist.')
+        toast.error('Failed to create actor. Email might already exist.')
     } finally {
         isLoading.value = false
     }

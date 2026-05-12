@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useAuth } from '@/composables/useAuth'
+import { toast } from 'vue-sonner'
 
 definePageMeta({
   layout: 'admin',
@@ -41,10 +42,11 @@ const updateMovie = async () => {
             body: form.value,
             headers: { Authorization: `Bearer ${token.value}` }
         })
-        router.push('/admin/movies')
+        toast.success('Movie updated successfully!')
+        await router.push('/admin/movies')
     } catch (e) {
         console.error('Failed to update movie', e)
-        alert('Failed to update movie')
+        toast.error('Failed to update movie')
     } finally {
         isLoading.value = false
     }

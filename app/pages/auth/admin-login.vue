@@ -1,6 +1,5 @@
 <template>
   <div class="auth-page flex flex-col justify-center items-center min-h-screen py-12">
-    <!-- Logo -->
     <NuxtLink to="/" class="mb-8">
       <span class="text-2xl font-bold text-white tracking-widest uppercase">The Reborn</span>
     </NuxtLink>
@@ -13,17 +12,34 @@
       <p class="text-gray-400 text-center text-sm mb-6">Administrative access only</p>
       <form @submit.prevent="handleLogin" class="space-y-4">
         <div>
-          <label class="block text-gray-400 mb-1">Email</label>
-          <input v-model="email" type="email" class="input-field" required/>
+          <label for="admin-email" class="block text-gray-400 mb-1">Email</label>
+          <input
+            id="admin-email"
+            v-model="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            spellcheck="false"
+            class="input-field"
+            required
+          />
         </div>
         <div>
-          <label class="block text-gray-400 mb-1">Password</label>
-          <input v-model="password" type="password" class="input-field" required/>
+          <label for="admin-password" class="block text-gray-400 mb-1">Password</label>
+          <input
+            id="admin-password"
+            v-model="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            class="input-field"
+            required
+          />
         </div>
-        <div v-if="error" class="text-red-500 text-sm text-center">{{ error }}</div>
+        <div v-if="error" class="text-red-500 text-sm text-center" role="alert" aria-live="polite">{{ error }}</div>
         <button type="submit" class="btn-admin w-full flex justify-center items-center gap-2" :disabled="loading">
           <Icon v-if="loading" name="ri:loader-4-line" class="animate-spin"/>
-          <span>Login as Admin</span>
+          <span>{{ loading ? 'Signing In…' : 'Login as Admin' }}</span>
         </button>
       </form>
       <div class="text-center mt-6 text-gray-500 text-sm">
@@ -38,22 +54,40 @@ const email = ref('')
 const password = ref('')
 const error = ref('')
 const loading = ref(false)
-const {login} = useAuth()
+const { login, user } = useAuth()
 const router = useRouter()
 
 const handleLogin = async () => {
+  if (loading.value) {
+    return
+  }
+
   loading.value = true
   error.value = ''
-  console.log("login starts")
-  const success = await login(email.value, password.value);
-  console.info("login ends");
-  if (success) {
-    window.location.href = "/admin";
-  } else {
-    error.value = 'Invalid credentials or unauthorized'
+
+  try {
+    const result = await login(email.value, password.value, {
+      redirect: false,
+      requiredRoles: ['ADMIN', 'SUPER_ADMIN']
+    })
+
+    if (!result.success) {
+      error.value = result.error || 'Invalid email or password'
+      return
+    }
+
+    await router.push('/admin')
+  } finally {
+    loading.value = false
   }
-  loading.value = false
 }
+
+onMounted(() => {
+  const roles = user.value?.roles || []
+  if (roles.includes('ADMIN') || roles.includes('SUPER_ADMIN')) {
+    router.push('/admin')
+  }
+})
 </script>
 
 <style scoped>
@@ -83,7 +117,8 @@ const handleLogin = async () => {
 
 .input-field:focus {
   border-color: #ef4444;
-  outline: none;
+  outline: 2px solid #ef4444;
+  outline-offset: 2px;
 }
 
 .btn-admin {
@@ -92,11 +127,16 @@ const handleLogin = async () => {
   font-weight: 700;
   padding: 0.75rem;
   text-transform: uppercase;
-  transition: all 0.2s;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
 }
 
 .btn-admin:hover:not(:disabled) {
   background-color: #dc2626;
+}
+
+.btn-admin:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
 }
 
 .btn-admin:disabled {

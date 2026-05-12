@@ -136,7 +136,10 @@ const filteredActors = computed(() => {
                         </div>
                     </td>
                     <td class="p-4">
-                        <span v-if="actor.approved" class="flex items-center text-green-700 text-sm font-medium">
+                        <span v-if="actor.user?.enabled === false" class="flex items-center text-red-700 text-sm font-medium">
+                            <Icon name="ri:forbid-2-fill" class="mr-1.5" /> Disabled
+                        </span>
+                        <span v-else-if="actor.approved" class="flex items-center text-green-700 text-sm font-medium">
                             <Icon name="ri:checkbox-circle-fill" class="mr-1.5" /> Approved
                         </span>
                         <span v-else class="flex items-center text-amber-600 text-sm font-medium">

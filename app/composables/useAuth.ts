@@ -5,6 +5,11 @@ export const useAuth = () => {
     const config = useRuntimeConfig()
     const route = useRoute()
 
+    type LoginOptions = {
+        redirect?: boolean
+        requiredRoles?: string[]
+    }
+
     const fetchUser = async () => {
         if (!token.value) return
         try {
@@ -45,7 +50,9 @@ export const useAuth = () => {
         }
     }
 
-    const login = async (email: string, password: string) => {
+    const login = async (email: string, password: string, options: LoginOptions = {}) => {
+        const { redirect = true, requiredRoles = [] } = options
+
         try {
             const { data, error } = await useFetch<any>(`${config.public.apiBase}/auth/authenticate`, {
                 method: 'POST',
@@ -72,13 +79,30 @@ export const useAuth = () => {
 
                 await fetchUser()
 
+                const roles = Array.isArray(user.value?.roles)
+                    ? user.value.roles
+                    : data.value.role
+                        ? [data.value.role]
+                        : []
+
+                if (requiredRoles.length && !requiredRoles.some(role => roles.includes(role))) {
+                    token.value = null
+                    user.value = null
+                    return {
+                        success: false,
+                        error: 'You do not have permission to access the admin area.'
+                    }
+                }
+
                 // Check profile completion for actors
                 if (data.value.role === 'ACTOR' && !data.value.profileComplete) {
                     await router.push('/profile/setup')
                     return { success: true, redirected: true }
                 }
 
-                await handleRedirect()
+                if (redirect) {
+                    await handleRedirect()
+                }
                 return { success: true }
             }
         } catch (e) {
