@@ -3,15 +3,17 @@
     <div class="pillars-grid">
       <!-- Card 1: Rwanda Cinema Hub -->
       <NuxtLink to="/cinema-hub" class="pillar-card group active-card">
-        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop');"></div>
+        <div class="card-bg"
+             style="background-image: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop');"></div>
         <div class="card-overlay"></div>
         <div class="card-content">
           <div class="card-icon">
-            <img src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896007/RWANDAN_CINEMA_HUB_1_ssu8jn.jpg" alt="Rwanda Cinema Hub" class="card-logo rounded-full" />
+            <img src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896007/RWANDAN_CINEMA_HUB_1_ssu8jn.jpg"
+                 alt="Rwanda Cinema Hub" class="card-logo rounded-full"/>
           </div>
-          <h2 class="card-title">RWANDA CINEMA HUB</h2>
+          <h2 class="card-title">RWANDAN CINEMA HUB</h2>
           <p class="card-desc">The beating heart of Rwandan storytelling. Discover talent, movies, and more.</p>
-          <span class="card-link text-gold">Enter Hub <Icon name="ri:arrow-right-line" /></span>
+          <span class="card-link text-gold">Enter Hub <Icon name="ri:arrow-right-line"/></span>
         </div>
       </NuxtLink>
 
@@ -26,8 +28,9 @@
                  alt="The Reborn Entertainment Films" class="card-logo rounded-lg"/>
           </div>
           <h2 class="card-title">THE REBORN ENTERTAINMENT FILMS</h2>
-          <p class="card-desc">The beating heart of Rwandan storytelling. Discover talent, movies, and world-class visual arts.</p>
-          <span class="card-link">Coming Soon <Icon name="ri:arrow-right-line" /></span>
+          <p class="card-desc">The beating heart of Rwandan storytelling. Discover talent, movies, and world-class
+            visual arts.</p>
+          <span class="card-link">Coming Soon <Icon name="ri:arrow-right-line"/></span>
         </div>
       </NuxtLink>
       <!-- Card 1: Construction -->
@@ -55,8 +58,9 @@
         <div class="card-overlay"></div>
         <div class="card-content">
           <div class="card-icon">
-            <img src="https://res.cloudinary.com/yebalabs-com/image/upload/v1769420565/THE_REBORN_REAL_ESTATE_og9nmq.jpg"
-                 alt="The Reborn Construction" class="card-logo rounded-lg"/>
+            <img
+                src="https://res.cloudinary.com/yebalabs-com/image/upload/v1769420565/THE_REBORN_REAL_ESTATE_og9nmq.jpg"
+                alt="The Reborn Construction" class="card-logo rounded-lg"/>
           </div>
           <h2 class="card-title">THE REBORN REAL ESTATE</h2>
           <p class="card-desc">Premium properties and developments shaping the landscape of Rwanda.</p>
