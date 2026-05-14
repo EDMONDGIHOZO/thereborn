@@ -9,7 +9,7 @@
         <div class="card-content">
           <div class="card-icon">
             <img src="https://res.cloudinary.com/yebalabs-com/image/upload/v1768896007/RWANDAN_CINEMA_HUB_1_ssu8jn.jpg"
-                 alt="Rwanda Cinema Hub" class="card-logo rounded-full"/>
+                 alt="Rwandan Cinema Hub" class="card-logo rounded-full"/>
           </div>
           <h2 class="card-title">RWANDAN CINEMA HUB</h2>
           <p class="card-desc">The beating heart of Rwandan storytelling. Discover talent, movies, and more.</p>

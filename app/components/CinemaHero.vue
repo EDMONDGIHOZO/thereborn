@@ -10,7 +10,7 @@
       <div class="mt-8">
         <NuxtLink to="/cinema-hub/notices" class="publications-btn">
           <span>Publications</span>
-          <Icon name="ri:arrow-right-line" class="ml-2" />
+          <Icon name="ri:arrow-right-line" class="ml-2"/>
         </NuxtLink>
       </div>
     </div>
@@ -19,9 +19,18 @@
     <div class="hero-right">
       <div class="content-box">
         <p class="hero-description">
-          The central ecosystem for Rwanda's film industry and visual arts. Explore a curated directory of actors, directors, producers, and creatives shaping the future of African storytelling.
+          We are delighted to welcome you to the only Rwandan Cinema Hub, the home of Rwandan filmmakers and creative
+          minds. This platform is designed to bring together everyone in the industry actors, directors, producers,
+          writers, and technicians fostering collaboration, inspiration, and growth.
+
+          Here, every talent is valued and every voice is heard. Whether you are just beginning your journey or already
+          established, Rwandan Cinema Hub is your space to connect, share, and showcase your work. By uniting our
+          community, we make it easier to spot and celebrate Rwandan talents globally, wherever you are.
+
+          Together, let’s build a vibrant future for Rwandan cinema and ensure our stories reach audiences across the
+          world. Welcome to the hub where creativity meets opportunity!
         </p>
-        
+
         <NuxtLink to="/cinema-hub/join" class="cta-button inline-block text-center">
           Join Now
         </NuxtLink>
@@ -29,7 +38,8 @@
     </div>
 
     <!-- Decorative Elements -->
-    <button @click="scrollToDirectory" class="scroll-indicator appearance-none bg-transparent border-0 cursor-pointer hover:text-white transition-colors">
+    <button @click="scrollToDirectory"
+            class="scroll-indicator appearance-none bg-transparent border-0 cursor-pointer hover:text-white transition-colors">
       SCROLL TO EXPLORE
     </button>
   </section>
@@ -39,7 +49,7 @@
 const scrollToDirectory = () => {
   const directorySection = document.getElementById('directory')
   if (directorySection) {
-    directorySection.scrollIntoView({ behavior: 'smooth' })
+    directorySection.scrollIntoView({behavior: 'smooth'})
   }
 }
 </script>
@@ -158,7 +168,7 @@ const scrollToDirectory = () => {
   .content-box {
     margin-left: 5rem;
   }
-  
+
   .scroll-indicator {
     left: 4rem;
   }
