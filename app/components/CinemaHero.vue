@@ -3,7 +3,7 @@
     <!-- Left Section: Title -->
     <div class="hero-left">
       <h1 class="hero-title">
-        RWANDA<br>
+        RWANDAN<br>
         CINEMA<br>
         <span class="hub-text">HUB</span>
       </h1>
